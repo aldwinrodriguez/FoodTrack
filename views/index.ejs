@@ -1,0 +1,14 @@
+<%- include('header'); -%>
+
+<ul>
+    <% item.forEach(element => { %>
+        <li><%=element%></li>    
+    <% }); %>
+</ul>
+
+<form action="/" method="post">
+    <input type="text" name="newItem" placeholder="What went down to your stomach?" autofocus>
+    <button type="submit">Add</button>
+</form>
+
+<%- include('footer'); -%>
