@@ -8,9 +8,10 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
-let listItem = [];
+let listItem = {};
 
 app.get('/', (req, res) => {
+    console.log(listItem);
     res.render('index', {
         item: listItem,
     });
@@ -18,7 +19,21 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     console.log(req.body);
-    listItem.push(req.body.newItem);
+    let addItem = req.body.newItem;
+    let removeItem = req.body.removeItem;
+    let operation = req.body.operation;
+    if (addItem && operation) {
+        listItem[addItem] = 1;
+    }
+    if (removeItem && !operation) {
+        if (typeof removeItem === 'string') {
+            delete listItem[removeItem];
+        } else {
+            removeItem.forEach(element => {
+                delete listItem[element];
+            });
+        }
+    }
     res.redirect('/');
 })
 
