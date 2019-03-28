@@ -26,7 +26,7 @@ let exampleSchema = new mongoose.Schema({
 
 let example = mongoose.model('example', exampleSchema);
 let de = new example({name: 'de', age: 21});
-
+    
 de.save();
 
 
