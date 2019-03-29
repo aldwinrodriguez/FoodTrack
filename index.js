@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/testing', {
+mongoose.connect('mongodb://localhost/test', {
     useNewUrlParser: true
 });
 
@@ -15,33 +15,42 @@ db.once('open', () => console.log('we\'re connected!', db.port));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
     extended: true
-}))
+}));
+
+const Schema = mongoose.Schema;
 
 let listItem = {};
 
-let exampleSchema = new mongoose.Schema({
-    name: String,
-    age: Number
-});
-
-let example = mongoose.model('example', exampleSchema);
-let de = new example({name: 'de', age: 21});
-    
-de.save();
+let food = mongoose.model('food', Schema({
+    food: String
+}));
 
 
 
 app.get('/', (req, res) => {
+    food.find(function (err, docs) {
+        console.log(docs[0].food);
+    })
     res.render('index', {
-        item: listItem,
+        // food.find(function (err, docs) {
+        //     item: docs
+        //     console.log(docs[0].food);
+        // })
     });
 })
+
+
 
 app.post('/', (req, res) => {
     let addItem = req.body.newItem;
     let removeItem = req.body.removeItem;
     let operation = req.body.operation;
-    if (addItem && operation) listItem[addItem] = 1;
+    if (addItem && operation) {
+        let item = new food({
+            food: addItem
+        });
+        // item.save();
+    }
     if (removeItem && !operation) {
         typeof removeItem === 'string' ? delete listItem[removeItem] :
             removeItem.forEach(element => {
