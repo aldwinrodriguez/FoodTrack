@@ -4,14 +4,14 @@
 <% item.forEach(element => { %>
 <form action="/" method="post">
     <input type="checkbox" name="removeItem" value="<%=element.food%>">
-    <%=element.food></br>
+    <%=element.food%></br>
     <% }); %>
     <% if (Object.keys(item).length === 0) { %>
     <form action="/" method="post">
         <% } %>
         <input type="text" name="newItem" placeholder="What went down to your stomach?" autofocus>
-        <button type="submit" name='operation' value="1">Add</button>
-        <button type="submit" name='operation' value="">Remove</button>
+        <button type="submit" name='operation' value="true">Add</button>
+        <button type="submit" name='operation' value="false">Remove</button>
     </form>
 
     <%- include('footer'); -%>
