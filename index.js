@@ -30,7 +30,6 @@ let listItems;
 app.get('/', (req, res) => {
     food.find(function (err, docs) {
         listItems = docs;
-
         res.render('index', {
             item: docs
         });
@@ -41,9 +40,11 @@ app.post('/', (req, res) => {
     let addItem = req.body.newItem;
     let removeItem = req.body.removeItem;
     let operation = req.body.operation;
-    listItems.forEach(element => {
-        if (addItem === element.food);
-    });
+    for (let i = 0; i < listItems.length; i++) {
+        if (addItem === listItems[i].food) {
+            return res.redirect('/')
+        }
+    }
     if (addItem && (operation === 'true')) {
         let item = new food({
             food: addItem
@@ -51,14 +52,11 @@ app.post('/', (req, res) => {
         item.save();
     }
     if (removeItem && (operation === 'false')) {
-        console.log('tr');
         food.deleteMany({
             food: {
                 $in: removeItem
             }
-        }, function (err, docs) {
-            console.log(docs)
-        });
+        }, (err, docs) => console.log(docs));
     }
     res.redirect('/');
 })
