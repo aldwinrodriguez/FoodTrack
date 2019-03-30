@@ -3,8 +3,16 @@
 
 <% item.forEach(element => { %>
 <form action="/" method="post">
-    <input type="checkbox" name="removeItem" value="<%=element.food%>">
-    <%=element.food%></br>
+    <div>
+        <input type="checkbox" name="removeItem" value="<%=element.food%>">
+        <span><%=element.food%></span>
+        <% if (element.hour < 12) { %>
+        <span><%=element.hour%> am</span>
+        <% } else { %>
+        <span><%=element.hour%> pm</span>
+        <% } %>
+        <span><%=element.day%></span>
+    </div>
     <% }); %>
     <% if (Object.keys(item).length === 0) { %>
     <form action="/" method="post">

@@ -20,18 +20,28 @@ db.once('open', () => console.log('we\'re connected!', db.port));
 const Schema = mongoose.Schema;
 
 let food = mongoose.model('food', Schema({
-    food: String
+    food: String,
+    hour: Number,
+    day: String,
+    dayNum: Number
 }, {
     versionKey: false
 }));
 
 let listItems;
 
+let currentTime = new Date();
+let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let currentHour = currentTime.getHours();
+let currentDayNum = currentTime.getDay();
+let currentDay = days[currentDayNum];
+
+
 app.get('/', (req, res) => {
     food.find(function (err, docs) {
         listItems = docs;
         res.render('index', {
-            item: docs
+            item: docs,
         });
     })
 })
@@ -47,7 +57,10 @@ app.post('/', (req, res) => {
     }
     if (addItem && (operation === 'true')) {
         let item = new food({
-            food: addItem
+            food: addItem,
+            hour: currentHour,
+            day: currentDay,
+            dayNum: currentDayNum
         });
         item.save();
     }
