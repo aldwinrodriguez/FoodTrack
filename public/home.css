@@ -1,6 +1,6 @@
 * {
     margin: 0;
-    padding:0;
+    padding: 0;
     font-size: 1.2rem;
     box-sizing: border-box;
 }
@@ -8,6 +8,11 @@
 h1 {
     text-align: center;
     margin: 2rem 0;
+}
+
+button {
+    background-color: transparent;
+    border: 0px solid transparent;
 }
 
 .container {
@@ -32,7 +37,7 @@ h1 {
 }
 
 .itemItemContainer {
-    width:100%;
+    width: 100%;
 }
 
 #itemInput {
@@ -41,4 +46,28 @@ h1 {
     height: 2rem;
     font-size: .8rem;
     text-align: center;
+}
+
+.buttonContainer {
+    text-align: center;
+}
+
+.buttonContainer i {
+    font-size: 3rem;
+}
+
+.show {
+    display: inline-block;
+}
+
+.hide {
+    display: none;
+}
+
+.showVis {
+    visibility: visible;
+}
+
+.hideVis {
+    visibility: hidden;
 }
