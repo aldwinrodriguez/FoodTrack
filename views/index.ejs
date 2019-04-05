@@ -1,11 +1,12 @@
 <%- include('header'); -%>
 <section id='wrapper'>
     <h1>LacList</h1>
+    <p class="center">Lists food that you ate within 2 days</p>
     <% item.forEach(element => { %>
     <form action="/" method="post">
-        <div class='container'>
+        <div class='itemContainer'>
             <div class='left'>
-                <input type="checkbox" class="checkboxItem" name="removeItem" value="<%=element.food%>">
+                <input type="checkbox" class="checkboxItem hide" name="removeItem" value="<%=element.food%>">
                 <span><%=element.food%></span>
             </div>
             <div class="right">
@@ -23,13 +24,14 @@
         <% if (Object.keys(item).length === 0) { %>
         <form action="/" method="post">
             <% } %>
-            <div class='itemItemContainer'>
+            <div class='itemInputContainer'>
                 <input type="text" name="newItem" id='itemInput' placeholder="What went down to your stomach?"
                     autofocus>
             </div>
-            <div class='buttonContainer'>
+            <div class='center'>
                 <button type="submit" id='add' name='operation' value="true"><i class="fas fa-plus-circle"></i></button>
-                <button type="submit" id='remove' name='operation' class="hide" value="false"><i class="fas fa-minus-circle"></i></button>
+                <button type="submit" id='remove' name='operation' class="hide" value="false"><i
+                        class="fas fa-minus-circle"></i></button>
             </div>
         </form>
 </section>

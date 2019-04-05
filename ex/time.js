@@ -1,5 +1,5 @@
 let currentTime = new Date();
-let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 module.exports = {
     getHour() {
@@ -10,5 +10,10 @@ module.exports = {
     },
     getDay() {
         return days[this.getDayNum()];
+    },
+    caps(str) {
+        let last = str.slice(1, str.length);
+        let first = str[0].toUpperCase();
+        return first + last;
     }
 }

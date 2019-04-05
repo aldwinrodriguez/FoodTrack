@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const time = require(__dirname + '/ex/time.js');
+const timeAndCaps = require(__dirname + '/ex/time.js');
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.route('/')
         })
     })
     .post((req, res) => {
-        let addItem = req.body.newItem;
+        let addItem = timeAndCaps.caps(req.body.newItem);
         let removeItem = req.body.removeItem;
         let operation = req.body.operation;
         if (listItems) {
@@ -58,9 +58,9 @@ app.route('/')
         if (addItem && (operation === 'true')) {
             let item = new food({
                 food: addItem,
-                hour: time.getHour(),
-                day: time.getDay(),
-                dayNum: time.getDayNum()
+                hour: timeAndCaps.getHour(),
+                day: timeAndCaps.getDay(),
+                dayNum: timeAndCaps.getDayNum()
             });
             item.save();
         }
@@ -73,5 +73,6 @@ app.route('/')
         }
         res.redirect('/');
     });
+
 
 app.listen(3000, () => console.log('starting'));

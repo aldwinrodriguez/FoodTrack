@@ -1,22 +1,22 @@
-let items = document.querySelectorAll('input.checkboxItem');
+let checkboxItem = document.querySelectorAll('input.checkboxItem');
+let items = document.querySelectorAll('div.itemContainer');
 items.forEach(element => {
-    element.addEventListener('click', hide);
+    element.addEventListener('click', hides);
 });
 
-function hide() {
+function hides() {
+    let checkbox = this.firstChild.nextSibling.firstChild.nextSibling;
+    !checkbox.checked ? checkbox.checked = true : checkbox.checked = false;
+    this.classList.toggle('highlight');
     for (let i = 0; i < items.length; i++) {
-        const element = items[i];
+        const element = checkboxItem[i];
         if (element.checked) {
             document.getElementById('add').setAttribute('class', 'hide');
             document.getElementById('remove').setAttribute('class', 'show');
-            document.getElementById('itemInput').classList.remove('showVis');
             document.getElementById('itemInput').classList.add('hideVis');
-            
-            // document.getElementById('itemInput').setAttribute('class', 'hide');
             break
         } else {
             document.getElementById('itemInput').classList.remove('hideVis');
-            document.getElementById('itemInput').classList.add('showVis');
             document.getElementById('add').setAttribute('class', 'show');
             document.getElementById('remove').setAttribute('class', 'hide');
         }
