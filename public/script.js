@@ -13,10 +13,10 @@ function hides() {
         if (element.checked) {
             document.getElementById('add').setAttribute('class', 'hide');
             document.getElementById('remove').setAttribute('class', 'show');
-            document.getElementById('itemInput').classList.add('hideVis');
+            document.getElementById('itemInput').classList.add('hide');
             break
         } else {
-            document.getElementById('itemInput').classList.remove('hideVis');
+            document.getElementById('itemInput').classList.remove('hide');
             document.getElementById('add').setAttribute('class', 'show');
             document.getElementById('remove').setAttribute('class', 'hide');
         }

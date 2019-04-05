@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-
 mongoose.connect('mongodb://localhost:27017/test', {
     useNewUrlParser: true
 });
@@ -32,32 +31,21 @@ let food = mongoose.model('food', Schema({
     versionKey: false
 }));
 
-let listItems;
-
-
 app.route('/')
     .get((req, res) => {
         food.find(function (err, docs) {
-            let listItems = docs;
             res.render('index', {
                 item: docs,
             });
         })
     })
     .post((req, res) => {
-        let addItem = timeAndCaps.caps(req.body.newItem);
+        let addItem = req.body.newItem;
         let removeItem = req.body.removeItem;
         let operation = req.body.operation;
-        if (listItems) {
-            for (let i = 0; i < listItems.length; i++) {
-                if (addItem === listItems[i].food) {
-                    return res.redirect('/')
-                }
-            }
-        }
         if (addItem && (operation === 'true')) {
             let item = new food({
-                food: addItem,
+                food: timeAndCaps.caps(addItem),
                 hour: timeAndCaps.getHour(),
                 day: timeAndCaps.getDay(),
                 dayNum: timeAndCaps.getDayNum()
