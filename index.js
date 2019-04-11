@@ -31,36 +31,40 @@ let food = mongoose.model('food', Schema({
     versionKey: false
 }));
 
-app.route('/')
-    .get((req, res) => {
-        food.find(function (err, docs) {
-            res.render('index', {
-                item: docs,
-            });
-        })
-    })
-    .post((req, res) => {
-        let addItem = req.body.newItem;
-        let removeItem = req.body.removeItem;
-        let operation = req.body.operation;
-        if (addItem && (operation === 'true')) {
-            let item = new food({
-                food: timeAndCaps.caps(addItem),
-                hour: timeAndCaps.getHour(),
-                day: timeAndCaps.getDay(),
-                dayNum: timeAndCaps.getDayNum()
-            });
-            item.save();
-        }
-        if (removeItem && (operation === 'false')) {
-            food.deleteMany({
-                food: {
-                    $in: removeItem
-                }
-            }, (err, docs) => console.log(docs));
-        }
-        res.redirect('/');
-    });
+app.get('/', (req,res) => {
+    res.render('login');
+});
+
+// app.route('/')
+//     .get((req, res) => {
+//         food.find(function (err, docs) {
+//             res.render('index', {
+//                 item: docs,
+//             });
+//         })
+//     })
+//     .post((req, res) => {
+//         let addItem = req.body.newItem;
+//         let removeItem = req.body.removeItem;
+//         let operation = req.body.operation;
+//         if (addItem && (operation === 'true')) {
+//             let item = new food({
+//                 food: timeAndCaps.caps(addItem),
+//                 hour: timeAndCaps.getHour(),
+//                 day: timeAndCaps.getDay(),
+//                 dayNum: timeAndCaps.getDayNum()
+//             });
+//             item.save();
+//         }
+//         if (removeItem && (operation === 'false')) {
+//             food.deleteMany({
+//                 food: {
+//                     $in: removeItem
+//                 }
+//             }, (err, docs) => console.log(docs));
+//         }
+//         res.redirect('/');
+//     });
 
 
 app.listen(3000, () => console.log('starting'));

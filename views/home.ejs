@@ -1,0 +1,47 @@
+<%- include('header'); -%>
+<!-- can put css here -->
+<link rel="stylesheet" href="/styles/home.css">
+</head>
+
+<body>
+
+    <section id='wrapper'>
+        <h1>LacList</h1>
+        <p class="center">Lists food that you ate within 2 days</p>
+        <% item.forEach(element => { %>
+        <form action="/" method="post">
+            <div class='itemContainer'>
+                <div class='left'>
+                    <input type="checkbox" class="checkboxItem hide" name="removeItem" value="<%=element.food%>">
+                    <span><%=element.food%></span>
+                </div>
+                <div class="right">
+                    <% if (element.hour === 0) { %>
+                    <span class='left'>12 am</span>
+                    <% } else if (element.hour < 12){ %>
+                    <span class='left'><%=element.hour%> am</span>
+                    <% } else { %>
+                    <span class='left'><%=element.hour - 12%> pm</span>
+                    <% } %>
+                    <span class="right"><%=element.day%></span>
+                </div>
+            </div>
+            <% }); %>
+            <% if (Object.keys(item).length === 0) { %>
+            <form action="/" method="post">
+                <% } %>
+                <div class='itemInputContainer'>
+                    <input type="text" name="newItem" id='itemInput' placeholder="What went down must come down?"
+                        autofocus>
+                </div>
+                <div class='center padding'>
+                    <button type="submit" id='add' name='operation' value="true"><i
+                            class="fas fa-plus-circle"></i></button>
+                    <button type="submit" id='remove' name='operation' class="hide" value="false"><i
+                            class="fas fa-minus-circle"></i></button>
+                </div>
+            </form>
+    </section>
+
+</body>
+<%- include('footer'); -%>

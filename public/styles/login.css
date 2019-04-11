@@ -1,0 +1,49 @@
+#wrapper {
+    margin: 7% auto;
+    padding: 2% 0;
+    text-align: center;
+}
+
+.loginItem {
+    width: 80%;
+    margin: 2% auto;
+    display: block;
+    border-radius: 5px;
+    border: 0px solid transparent;
+    position: relative;
+    text-align: center;
+}
+
+a.facebook {
+    background-color: rgb(60, 90, 153);
+    color: white;
+    border-left: 4px solid rgb(27, 48, 92);
+    border-bottom: 1px solid rgb(27, 48, 92);
+}
+
+a.twitter {
+    background-color: rgb(56, 161, 243);
+    color: white;
+    border-left: 4px solid rgb(22, 115, 187);
+    border-bottom: 1px solid rgb(22, 115, 187);
+}
+
+a.google {
+    background-color: rgb(221, 75, 57);
+    color: white;
+    border-left: 4px solid rgb(139, 23, 8);
+    border-bottom: 1px solid rgb(139, 23, 8);
+}
+
+a.signUp {
+    background-color: rgb(233, 73, 233);
+    color: white;
+    border-left: 4px solid rgb(124, 16, 124);
+    border-bottom: 1px solid rgb(124, 16, 124);
+}
+
+/* .fab {
+    position: absolute;
+    left: 5px;
+    top: 25%;
+} */
