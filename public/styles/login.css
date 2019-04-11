@@ -1,17 +1,21 @@
 #wrapper {
-    margin: 7% auto;
-    padding: 2% 0;
+    padding: 2.5em 0 1em;
     text-align: center;
 }
 
 .loginItem {
     width: 80%;
-    margin: 2% auto;
+    margin: 6px auto;
     display: block;
     border-radius: 5px;
     border: 0px solid transparent;
     position: relative;
     text-align: center;
+}
+
+.loginInput,button.loginItem {
+    margin: 4px auto;
+    width: 100%;
 }
 
 a.facebook {
@@ -36,14 +40,28 @@ a.google {
 }
 
 a.signUp {
-    background-color: rgb(233, 73, 233);
-    color: white;
-    border-left: 4px solid rgb(124, 16, 124);
-    border-bottom: 1px solid rgb(124, 16, 124);
+    background-color: rgb(233, 236, 44);
+    margin-top: 10px;
+    color: black;
+    border-left: 4px solid rgb(178, 180, 47);
+    border-bottom: 1px solid rgb(178, 180, 47);
+    letter-spacing: 1px;
 }
 
-/* .fab {
-    position: absolute;
-    left: 5px;
-    top: 25%;
-} */
+button.login {
+    background-color: rgb(150, 146, 146);
+    color: white;
+    border-left: 4px solid rgb(109, 106, 106);
+    border-bottom: 1px solid rgb(109, 106, 106);
+    letter-spacing: 1px;
+}
+
+.loginForm {
+    margin: 10% auto 0;
+    width: 80%;
+}
+
+.loginInput {
+    height: 34px;
+    font-size: .8em;
+}

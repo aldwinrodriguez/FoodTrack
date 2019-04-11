@@ -7,7 +7,8 @@
 }
 
 body {
-    background: lightblue url("/images/beach-blur-close-up-949215.jpg") no-repeat fixed center;
+    background-image: linear-gradient(to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%);
+    /* background: lightblue url("/images/beach-blur-close-up-949215.jpg") no-repeat fixed center; */
 }
 
 a {
@@ -15,25 +16,32 @@ a {
     color: black;
 }
 
+button {
+    cursor:pointer;
+}
+
 @media screen and (min-width: 1200px) {
     body {
-        background-size: 100%;
+        background-size: cover;
     }
 }
 
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 450px) {
     #wrapper {
         border: 0px solid transparent;
         border-radius: 5px;
         box-shadow: 0px 0px 50px 2px rgb(83, 93, 99);
-        background-color: rgba(240, 248, 255, 0.582);
+        background-color: rgba(240, 248, 255, 0.384);
+        max-width: 450px;
+        margin: 10% auto;
     }
 }
 
-#wrapper {
-    width: 400px;
-    margin: 10% auto;
-    background-color: rgba(240, 248, 255, 0.658);
+@media screen and (max-width: 450px) {
+    #wrapper {
+        margin: 40% auto;
+        box-shadow: 0px 0px 50px 2px rgb(83, 93, 99);
+        background-color: rgba(240, 248, 255, 0.658);
+    }
 }
-
