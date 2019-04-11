@@ -3,6 +3,11 @@
     text-align: center;
 }
 
+.loginForm {
+    margin: 10% auto 0;
+    width: 80%;
+}
+
 .loginItem {
     width: 80%;
     margin: 6px auto;
@@ -13,10 +18,18 @@
     text-align: center;
 }
 
-.loginInput,button.loginItem {
+.loginInput,
+button.loginItem {
     margin: 4px auto;
     width: 100%;
 }
+
+.loginInput {
+    height: 34px;
+    font-size: .8em;
+}
+
+
 
 a.facebook {
     background-color: rgb(60, 90, 153);
@@ -54,14 +67,4 @@ button.login {
     border-left: 4px solid rgb(109, 106, 106);
     border-bottom: 1px solid rgb(109, 106, 106);
     letter-spacing: 1px;
-}
-
-.loginForm {
-    margin: 10% auto 0;
-    width: 80%;
-}
-
-.loginInput {
-    height: 34px;
-    font-size: .8em;
 }
