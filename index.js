@@ -1,9 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
 
+// my exports
 const timeAndCaps = require(__dirname + '/ex/time.js');
+// end of my exports
 
+// app configurations
 const app = express();
 
 app.use(express.static('public'));
@@ -11,7 +17,13 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(session());
+app.use(passport.initialize());
+app.use(passport.session());
+// end of app configurations
 
+
+// mongoDB config
 mongoose.connect('mongodb://localhost:27017/test', {
     useNewUrlParser: true
 });
@@ -22,6 +34,7 @@ db.once('open', () => console.log('we\'re connected!', db.port));
 
 const Schema = mongoose.Schema;
 
+// food collections
 let food = mongoose.model('food', Schema({
     food: String,
     hour: Number,
@@ -30,8 +43,47 @@ let food = mongoose.model('food', Schema({
 }, {
     versionKey: false
 }));
+// end of food collections
 
-app.get('/', (req,res) => {
+// user collections
+let User = mongoose.model('user', Schema({
+    username: String,
+    password: String
+}));
+// user collections
+
+
+// end of mongoDB config
+
+// Passport
+
+passport.use(new LocalStrategy(
+    function (username, password, done) {
+        User.findOne({
+            username: username
+        }, function (err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false, {
+                    message: 'Incorrect username.'
+                });
+            }
+            if (!user.validPassword(password)) {
+                return done(null, false, {
+                    message: 'Incorrect password.'
+                });
+            }
+            return done(null, user);
+        });
+    }
+));
+
+// end of Passport
+
+
+app.get('/', (req, res) => {
     res.render('login');
 });
 
