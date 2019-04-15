@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -7,7 +8,6 @@ const session = require('express-session');
 
 // my exports
 const timeAndCaps = require(__dirname + '/ex/time.js');
-// end of my exports
 
 // app configurations
 const app = express();
@@ -17,10 +17,17 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(session());
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: true
+    }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-// end of app configurations
+mongoose.set('useCreateIndex', true);
 
 
 // mongoDB config
@@ -43,49 +50,61 @@ let food = mongoose.model('food', Schema({
 }, {
     versionKey: false
 }));
-// end of food collections
-
-// user collections
-let User = mongoose.model('user', Schema({
-    username: String,
-    password: String
-}));
-// user collections
 
 
-// end of mongoDB config
 
 // Passport
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
-passport.use(new LocalStrategy(
-    function (username, password, done) {
-        User.findOne({
-            username: username
-        }, function (err, user) {
-            if (err) {
-                return done(err);
-            }
-            if (!user) {
-                return done(null, false, {
-                    message: 'Incorrect username.'
-                });
-            }
-            if (!user.validPassword(password)) {
-                return done(null, false, {
-                    message: 'Incorrect password.'
-                });
-            }
-            return done(null, user);
-        });
-    }
-));
+// Routes
+app.get('/login',
+    //   passport.authenticate('local', { failureRedirect: '/' }),
+    function (req, res) {
+        res.render('login');
+    });
 
-// end of Passport
+app.get('/',
+    function (req, res) {
+        res.render('login');
+    });
 
+app.get('/failedlogin', (req,res) => {
+    res.send('you are not registered yet')
+})
 
-app.get('/', (req, res) => {
-    res.render('login');
+app.get('/register', (req, res) => {
+    res.render('register');
 });
+
+app.post('/',
+    passport.authenticate('local', {
+        failureRedirect: '/failedlogin'
+    }),
+    function (req, res) {
+        res.send('success');
+    });
+
+app.post('/register', function (req, res) {
+    Account.register(new Account({
+        username: req.body.username
+    }), req.body.password, function (err, account) {
+        if (err) {
+            return res.render('register', {
+                account: account
+            });
+        }
+
+        passport.authenticate('local')(req, res, function () {
+            console.log(req.user);
+
+            res.redirect('/');
+        });
+    });
+});
+
 
 // app.route('/')
 //     .get((req, res) => {

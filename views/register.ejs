@@ -1,0 +1,25 @@
+<%- include('header'); -%>
+<link rel="stylesheet" href="/styles/login.css">
+
+</head>
+
+<body>
+    <section id='title'>
+        <div>
+            <span class="titleContainer"><span class="titleFirst">F</span><span
+                    class="titleChild">ood</span></span><span class="titleFirst">T</span><span
+                class="titleChild">rack</span>
+        </div>
+    </section>
+    <div id='wrapper'>
+        <div class="loginForm">
+            <form action="/register" method="post">
+                <input type="text" name="username" id="" placeholder="Username" class="loginItem loginInput">
+                <input type="password" name="password" id="" placeholder="Password" class="loginItem loginInput">
+                <button type="submit" class="loginItem login signUp" value="Register">Register <i
+                        class="fas fa-sign-in-alt"></i></button>
+            </form>
+        </div>
+    </div>
+</body>
+<%- include('footer'); -%>
