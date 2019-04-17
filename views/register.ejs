@@ -7,32 +7,48 @@
     </div>
 </section>
 <section id='registerWrapper' class='wrapper'>
-    <div>The purpose of this app is to track food that you ate and lists everything you ate within a day if
+    <div class="center intro">The purpose of this app is to track food that you ate and lists everything you ate within
+        a day
+        if
         'REACTION' button is pressed, which means that something you ate within a day caused a reaction. Can
         also be used as a food tracker if you have undiscovered food reaction</div>
     <form action="/register" method="post">
-        <div class="allergies">
+        <div class="labelContainer spaceBetween wrap">
             <div>
                 <label for="allergies">Do you have any allergies? </label>
             </div>
-            <div>
+            <div class="center">
                 <input type="radio" name="allergies" value="yes"> Yes
                 <input type="radio" name="allergies" value="no"> No
                 <input type="radio" name="allergies" value="maybe"> Not that I know of 🤔
             </div>
         </div>
-        <div>
+        <div class="labelContainer spaceBetween">
             <label for="name">Name</label>
-            <input type="text" name="name" id="" placeholder="Name">
+            <input type="text" name="name" class="nameInput regInputContainer" placeholder="Name">
         </div>
-        <div>
-            <label for="Email Address">Email Address</label>
-            <input type="text" name="email" id="" placeholder="Email Address">
+        <div class="labelContainer spaceBetween">
+            <label for="email address">Email</label>
+            <input type="text" name="email" class="nameInput regInputContainer" id="" placeholder="Email Address">
         </div>
-        <input type="text" name="username" id="" placeholder="Username" class="">
-        <input type="password" name="password" id="" placeholder="Password" class="">
-        <input type="password" name="confirmPassword" id="" placeholder="Confirm Password" class="">
-        <button type="submit" class="" value="Register">Sign up 😁👍</button>
+        <div class="labelContainer spaceBetween">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="nameInput regInputContainer" id="" placeholder="Username" class="">
+        </div>
+        <div class="labelContainer spaceBetween wrapPass">
+            <div>
+                <label for="password">Password</label>
+                <input type="password" class="passContainer regInputContainer" name="password" id="" placeholder="Password" class="">
+            </div>
+            <div>
+                <label for="Confirm Password">Confirm Password</label>
+                <input type="password" class="passContainer regInputContainer" name="confirmPassword" id="" placeholder="Confirm Password"
+                    class="">
+            </div>
+        </div>
+        <div class='regParent'>
+            <button type="submit" class="register" value="Register">Sign up 😁</button>
+        </div>
     </form>
 </section>
 

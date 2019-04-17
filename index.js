@@ -36,8 +36,6 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => console.log('we\'re connected!', db.port));
 
-const Schema = mongoose.Schema;
-
 // food collections
 const food = require(__dirname + '/models/food.js');
 
@@ -49,18 +47,23 @@ passport.deserializeUser(Account.deserializeUser());
 
 // Routes
 app.get('/', (req, res) => {
-    console.log(req.user);
-    food.find(function (err, docs) {
-        res.render('home', {
-            item: docs,
-        });
-    })
+    let user = req.user;
+    console.log(user);
+    if (user) {
+        food.find(function (err, docs) {
+            res.render('home', {
+                item: docs,
+            });
+        })
+    } else {
+        res.redirect('/login');
+    }
 })
 
-app.get('/logout', function(req, res){
+app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
-  });
+});
 
 app.get('/login',
     function (req, res) {
@@ -82,9 +85,10 @@ app.get('/register', (req, res) => {
 app.post('/register', function (req, res) {
     Account.register(new Account({
         username: req.body.username,
-        food: req.body.food,
+        email: req.body.email,
+        name: req.body.name,
+        allergies: req.body.allergies,
     }), req.body.password, function (err, account) {
-        console.log(account);
 
         if (err) {
             return res.render('register', {
