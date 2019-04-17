@@ -20,10 +20,7 @@ app.use(bodyParser.urlencoded({
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: true
-    }
+    saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -42,64 +39,40 @@ db.once('open', () => console.log('we\'re connected!', db.port));
 const Schema = mongoose.Schema;
 
 // food collections
-let food = mongoose.model('food', Schema({
-    food: String,
-    hour: Number,
-    day: String,
-    dayNum: Number
-}, {
-    versionKey: false
-}));
-
+const food = require(__dirname + '/models/food.js');
 
 // Passport
-var Account = require(__dirname + '/models/account.js');
+const Account = require(__dirname + '/models/account.js');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // Routes
-
-app.get('/',
-    function (req, res) {
-        passport.authenticate('local')(req, res, function () {
-            res.render('home');
-        });
-    });
-
-// app.post('/login', passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login'
-// }));
-
-app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    // res.redirect('/users/' + req.user.username);
-    res.redirect('/secrets');
-  });
-
-app.post('/', function (req, res) {
-    res.redirect('/');
-});
-
-app.get('/secrets',
- passport.authenticate('local')
-,
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    // res.redirect('/users/' + req.user.username);
+app.get('/', (req, res) => {
     console.log(req.user);
-    
-    res.send('secrets');
+    food.find(function (err, docs) {
+        res.render('home', {
+            item: docs,
+        });
+    })
+})
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
   });
 
 app.get('/login',
     function (req, res) {
         res.render('login');
+    });
+
+app.post('/login',
+    passport.authenticate('local'),
+    function (req, res) {
+        // If this function gets called, authentication was successful.
+        // res.redirect('/users/' + req.user.username);
+        res.redirect('/');
     });
 
 app.get('/register', (req, res) => {
@@ -108,7 +81,8 @@ app.get('/register', (req, res) => {
 
 app.post('/register', function (req, res) {
     Account.register(new Account({
-        username: req.body.username
+        username: req.body.username,
+        food: req.body.food,
     }), req.body.password, function (err, account) {
         console.log(account);
 
@@ -123,7 +97,6 @@ app.post('/register', function (req, res) {
         });
     });
 });
-
 
 // app.route('/')
 //     .get((req, res) => {

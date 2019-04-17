@@ -1,3 +1,5 @@
+/* Global */
+
 * {
     margin: 0;
     padding: 0;
@@ -18,6 +20,35 @@ a {
 
 button {
     cursor: pointer;
+    background-color: transparent;
+    border: 0px solid transparent;
+}
+
+input {
+    border-width: 0px;
+}
+
+section#title span.titleFirst {
+    font-size: 3.4em;
+    color: #2b7fdf;
+    font-family: 'Merienda', cursive;
+    font-weight: bolder;
+    font-style: italic;
+    line-height: 1.2em;
+    text-shadow: -3.5px 3px #14549c;
+}
+
+section#title span.titleChild {
+    font-family: 'Merienda', cursive;
+    font-size: 1em;
+    color: #124d91;
+    position: relative;
+    right: .55em;
+}
+
+section#title span.titleContainer {
+    position: relative;
+    left: .55em;
 }
 
 @media screen and (min-width: 1200px) {
@@ -28,12 +59,11 @@ button {
 
 
 @media screen and (min-width: 450px) {
-    #wrapper {
+    section.wrapper {
         border: 0px solid transparent;
         border-radius: 5px;
         box-shadow: 0px 0px 50px 2px rgb(83, 93, 99);
         background-color: rgba(240, 248, 255, 0.384);
-        max-width: 450px;
         margin: 3% auto;
     }
 
@@ -83,7 +113,7 @@ button {
 }
 
 @media screen and (max-width: 450px) {
-    #wrapper {
+    section.wrapper {
         margin: 10% auto;
         box-shadow: 0px 0px 50px 2px rgb(83, 93, 99);
         background-color: rgba(240, 248, 255, 0.384);
@@ -134,25 +164,197 @@ button {
     }
 }
 
-section#title span.titleFirst {
-    font-size: 3.4em;
-    color: #2b7fdf;
-    font-family: 'Merienda', cursive;
-    font-weight: bolder;
-    font-style: italic;
-    line-height: 1.2em;
-    text-shadow: -3.5px 3px #14549c;
+/* Login */
+
+section#loginWrapper {
+    padding: 2.5em 0 1em;
+    text-align: center;
+    max-width: 450px;
 }
 
-section#title span.titleChild {
-    font-family: 'Merienda', cursive;
-    font-size: 1em;
-    color: #124d91;
-    position: relative;
-    right: .55em;
+.loginForm {
+    margin: 10% auto 0;
+    width: 80%;
 }
 
-section#title span.titleContainer {
+.loginItem {
+    width: 80%;
+    margin: 6px auto;
+    display: block;
+    border-radius: 5px;
+    border: 0px solid transparent;
     position: relative;
-    left: .55em;
+    text-align: center;
+}
+
+.loginInput,
+button.loginItem {
+    margin: 4px auto;
+    width: 100%;
+}
+
+.loginInput {
+    height: 34px;
+    font-size: .8em;
+}
+
+a.facebook {
+    background-color: rgb(60, 90, 153);
+    color: white;
+    border-left: 4px solid rgb(27, 48, 92);
+    border-bottom: 1px solid rgb(27, 48, 92);
+}
+
+a.twitter {
+    background-color: rgb(56, 161, 243);
+    color: white;
+    border-left: 4px solid rgb(22, 115, 187);
+    border-bottom: 1px solid rgb(22, 115, 187);
+}
+
+a.google {
+    background-color: rgb(221, 75, 57);
+    color: white;
+    border-left: 4px solid rgb(139, 23, 8);
+    border-bottom: 1px solid rgb(139, 23, 8);
+}
+
+a.signUp {
+    background-color: rgb(233, 236, 44);
+    margin-top: 10px;
+    color: black;
+    border-left: 4px solid rgb(178, 180, 47);
+    border-bottom: 1px solid rgb(178, 180, 47);
+    letter-spacing: 1px;
+}
+
+button.login {
+    background-color: rgb(150, 146, 146);
+    color: white;
+    border-left: 4px solid rgb(109, 106, 106);
+    border-bottom: 1px solid rgb(109, 106, 106);
+    letter-spacing: 1px;
+}
+
+/* Home */
+
+section#homeWrapper {
+    max-width: 450px;
+}
+
+p.center {
+    font-size: .6rem;
+    margin: 1.2rem 0 2rem;
+}
+
+div.itemContainer:hover {
+    cursor: pointer;
+}
+
+/* ID selector */
+
+
+#itemInput {
+    margin: 1rem 0 0;
+    width: 100%;
+    height: 2rem;
+    font-size: .8rem;
+    text-align: center;
+}
+
+#itemInput:focus {
+    transition: all .5s;
+    border: 0px solid transparent;
+    box-shadow: 0px 0px 60px 2px rgba(138, 64, 235, 0.678);
+}
+
+/* Class selector */
+
+.itemContainer {
+    width: 100%;
+    height: 2em;
+    padding: 0 3%;
+}
+
+.left {
+    width: 60%;
+    float: left;
+    clear: both;
+}
+
+.right {
+    width: 40%;
+    float: right;
+    text-align: right;
+}
+
+.itemInputContainer {
+    width: 100%;
+}
+
+.show {
+    display: inline-block;
+}
+
+.hide {
+    display: none;
+}
+
+.hideVis {
+    visibility: hidden;
+}
+
+.highlight {
+    transition: ease-in .2s;
+    background-color: rgba(124, 55, 214, 0.459);
+}
+
+.center {
+    text-align: center;
+}
+
+.center i {
+    font-size: 4rem;
+}
+
+.padding {
+    padding: 10% 0;
+}
+
+.fa-plus-circle {
+    color: rgb(103, 111, 175);
+}
+
+.fa-plus-circle:hover {
+    transition: ease-in .3s;
+    color: rgb(173, 122, 255);
+    text-shadow: 0px 0px 20px rgb(122, 129, 184);
+}
+
+.fa-minus-circle {
+    color: rgba(192, 87, 76, 0.795);
+}
+
+.fa-minus-circle:hover {
+    transition: ease-in .2s;
+    color: rgba(252, 45, 22, 0.925);
+    text-shadow: 0px 0px 10px rgba(192, 85, 73, 0.534);
+}
+
+
+/* Register */
+
+#registerWrapper {
+    max-width: 1000px;
+    text-align: center;
+    padding: 2em 0 1em;
+}
+
+.allergies {
+    width: 100%;
+    margin: 1em auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
 }

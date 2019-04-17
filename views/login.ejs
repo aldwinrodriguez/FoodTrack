@@ -1,29 +1,25 @@
 <%- include('header'); -%>
-<!-- can put css here -->
-<link rel="stylesheet" href="/styles/login.css">
 
-</head>
-
-<body>
-    <section id='title'>
-        <div>
-            <span class="titleContainer"><span class="titleFirst">F</span><span class="titleChild">ood</span></span><span class="titleFirst">T</span><span class="titleChild">rack</span>
-        </div>
-    </section>
-    <div id='wrapper'>
-        <a href="#" class="loginItem facebook"><i class="fab fa-facebook-square"></i> Log in with Facebook</a>
-        <a href="#" class="loginItem twitter"><i class="fab fa-twitter-square"></i> Log in with Twitter</a>
-        <a href="#" class="loginItem google"><i class="fab fa-google-plus-square"></i> Log in with Google</a>
-        <div class="loginForm">
-            <form action="/login" method="post">
-                <input type="text" name="username" id="" placeholder="Username" class="loginItem loginInput">
-                <input type="password" name="password" id="" placeholder="Password" class="loginItem loginInput">
-                <button type="submit" class="loginItem login" value="Log in">Login <i class="fas fa-sign-in-alt"></i></button>
-            </form>
-        </div>
-        <a href="/register" class="button loginItem signUp">Register <i class="fas fa-address-card"></i></a>
-
+<section id='title'>
+    <div>
+        <span class="titleContainer"><span class="titleFirst">F</span><span class="titleChild">ood</span></span><span
+            class="titleFirst">T</span><span class="titleChild">rack</span>
     </div>
-</body>
+</section>
+<section id='loginWrapper' class='wrapper'>
+    <a href="#" class="loginItem facebook"><i class="fab fa-facebook-square"></i> Log in with Facebook</a>
+    <a href="#" class="loginItem twitter"><i class="fab fa-twitter-square"></i> Log in with Twitter</a>
+    <a href="#" class="loginItem google"><i class="fab fa-google-plus-square"></i> Log in with Google</a>
+    <div class="loginForm">
+        <form action="/login" method="post">
+            <input type="text" name="username" id="" placeholder="Username" class="loginItem loginInput">
+            <input type="password" name="password" id="" placeholder="Password" class="loginItem loginInput">
+            <button type="submit" class="loginItem login" value="Log in">Login <i
+                    class="fas fa-sign-in-alt"></i></button>
+        </form>
+    </div>
+    <a href="/register" class="button loginItem signUp">Register <i class="fas fa-address-card"></i></a>
+
+</section>
 
 <%- include('footer'); -%>
