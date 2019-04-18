@@ -6,11 +6,15 @@
             class="titleFirst">T</span><span class="titleChild">rack</span>
     </div>
 </section>
+
 <section id='loginWrapper' class='wrapper'>
     <a href="#" class="loginItem facebook"><i class="fab fa-facebook-square"></i> Log in with Facebook</a>
     <a href="#" class="loginItem twitter"><i class="fab fa-twitter-square"></i> Log in with Twitter</a>
     <a href="#" class="loginItem google"><i class="fab fa-google-plus-square"></i> Log in with Google</a>
     <div class="loginForm">
+        <div>
+            <%= message %>
+        </div>
         <form action="/login" method="post">
             <input type="text" name="username" id="" placeholder="Username" class="loginItem loginInput">
             <input type="password" name="password" id="" placeholder="Password" class="loginItem loginInput">

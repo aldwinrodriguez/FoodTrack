@@ -9,9 +9,9 @@ const session = require('express-session');
 // my exports
 const timeAndCaps = require(__dirname + '/ex/time.js');
 
-// app configurations
 const app = express();
 
+// app configurations
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
@@ -28,16 +28,13 @@ mongoose.set('useCreateIndex', true);
 
 
 // mongoDB config
-mongoose.connect('mongodb://localhost:27017/test', {
+mongoose.connect('mongodb://localhost:27017/FoodTrack', {
     useNewUrlParser: true
 });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => console.log('we\'re connected!', db.port));
-
-// food collections
-const food = require(__dirname + '/models/food.js');
 
 // Passport
 const Account = require(__dirname + '/models/account.js');
@@ -46,61 +43,24 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // Routes
-app.get('/', (req, res) => {
-    let user = req.user;
-    console.log(user);
-    if (user) {
-        food.find(function (err, docs) {
-            res.render('home', {
-                item: docs,
-            });
-        })
-    } else {
-        res.redirect('/login');
-    }
-})
+const routeCb = require(__dirname + '/route_cbs/route_callbacks.js');
 
-app.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
-});
+// home
+app.route('/')
+    .get(routeCb.home);
 
-app.get('/login',
-    function (req, res) {
-        res.render('login');
-    });
+// login
+app.route('/login')
+    .get(routeCb.login)
+    .post(routeCb.postLogin);
 
-app.post('/login',
-    passport.authenticate('local'),
-    function (req, res) {
-        // If this function gets called, authentication was successful.
-        // res.redirect('/users/' + req.user.username);
-        res.redirect('/');
-    });
+// register
+app.route('/register')
+    .get(routeCb.register)
+    .post(routeCb.postRegister);
 
-app.get('/register', (req, res) => {
-    res.render('register');
-});
-
-app.post('/register', function (req, res) {
-    Account.register(new Account({
-        username: req.body.username,
-        email: req.body.email,
-        name: req.body.name,
-        allergies: req.body.allergies,
-    }), req.body.password, function (err, account) {
-
-        if (err) {
-            return res.render('register', {
-                account: account
-            });
-        }
-
-        passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
-        });
-    });
-});
+// logout
+app.get('/logout', routeCb.logout);
 
 // app.route('/')
 //     .get((req, res) => {
