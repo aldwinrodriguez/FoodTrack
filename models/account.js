@@ -12,13 +12,7 @@ const Account = new Schema({
     versionKey: false
 });
 
-let options = {
-    errorMessages: {
-        IncorrectPasswordError: true
-    }
-};
 
-
-Account.plugin(passportLocalMongoose, options);
+Account.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Account', Account);

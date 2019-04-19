@@ -9,6 +9,7 @@ let routeFunctions = {};
 
 // get home
 routeFunctions.home = function (req, res) {
+	console.log("TCL: routeFunctions.home -> req", req.user)
     if (req.user) {
         food.find(function (err, docs) {
             res.render('home', {
