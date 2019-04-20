@@ -7,7 +7,7 @@ oauth.google = passport.authenticate('google', {
     scope: ['profile', 'email', 'openid']
 })
 oauth.googleCb = passport.authenticate('google', {
-    failureRedirect: '/'
+    failureRedirect: '/auth/google'
 })
 
 module.exports = oauth;

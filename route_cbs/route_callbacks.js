@@ -23,6 +23,9 @@ routeFunctions.home = function (req, res) {
 
 // get login
 routeFunctions.login = (req, res) => {
+    if (req.user) {
+        return res.redirect('/')
+    }
     res.render('login', {
         message: '',
     });
@@ -44,6 +47,7 @@ routeFunctions.postLogin = (req, res, next) => {
                 message: info.message,
             });
         }
+        // console.log('login user', user);
         req.logIn(user, function (err) {
             if (err) {
                 return next(err);
@@ -55,6 +59,9 @@ routeFunctions.postLogin = (req, res, next) => {
 
 // get register
 routeFunctions.register = (req, res) => {
+    if (req.user) {
+        return res.redirect('/')
+    }
     res.render('register');
 }
 

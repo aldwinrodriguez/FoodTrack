@@ -7,6 +7,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 // const passportLocalMongoose = require('passport-local-mongoose');
 const FacebookStrategy = require('passport-facebook').Strategy;
+const TwitterStrategy = require('passport-twitter').Strategy;
 
 // my exports
 const timeAndCaps = require(__dirname + '/ex/time.js');
@@ -101,62 +102,69 @@ app.get('/auth/facebook',
 
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-        failureRedirect: '/'
+        failureRedirect: '/auth/facebook'
     }),
     function (req, res) {
         // Successful authentication, redirect home.
         res.redirect('/');
     });
 
-// app.get('/exa', (req, res) => {
-//     facebook.findOne({},
-//         function (err, docs) {
-//             console.log('finding');
-//             if (err) {
-//                 return err
-//             }
-//             if (!docs) {
-//                 console.log(docs);
-
-//                 console.log('make docs');
-//             } else {
-//                 console.log(docs);
-//             }
-//         }
-//     )
-// })
 
 let twitterUser = mongoose.model('twitter', Schemas({
     _id: String,
+    name: String,
+    // email: String,
+    pro_pic: String,
+    provider: String
+}, {
+    versionKey: false
 }))
 
 
 // passport twitter
-// passport.use(new TwitterStrategy({
-//         consumerKey: process.env.TWITTER_CONSUMER_KEY,
-//         consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-//         callbackURL: "http://localhost:3000/auth/twitter/callback"
-//     },
-//     function (token, tokenSecret, profile, cb) {
-//         User.findOrCreate({
-//             twitterId: profile.id
-//         }, function (err, user) {
-//             return cb(err, user);
-//         });
-//     }
-// ));
+passport.use(new TwitterStrategy({
+        consumerKey: process.env.TWITTER_CONSUMER_KEY,
+        consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+        callbackURL: "http://localhost:3000/auth/twitter/callback"
+    },
+    function (token, tokenSecret, profile, cb) {
+        twitterUser.findById({
+            _id: profile.id
+        }, function (err, user) {
+            // console.log(profile);
+            if (err) {
+                return console.log(err);
+            }
+            if (!user) {
+                let account = new twitterUser({
+                    _id: profile.id,
+                    name: profile.displayName,
+                    // email: profile.emails[0].value,
+                    // update
+                    pro_pic: profile.photos[0].value,
+                    provider: profile.provider
+                });
+                account.save(err => {
+                    if (err) return console.log(err);
+                });
+                return cb(err, user);
+            }
+            return cb(err, user);
+        });
+    }
+));
 
-// app.get('/auth/twitter',
-//     passport.authenticate('twitter'));
+app.get('/auth/twitter',
+    passport.authenticate('twitter'));
 
-// app.get('/auth/twitter/callback',
-//     passport.authenticate('twitter', {
-//         failureRedirect: '/login'
-//     }),
-//     function (req, res) {
-//         // Successful authentication, redirect home.
-//         res.redirect('/');
-//     });
+app.get('/auth/twitter/callback',
+    passport.authenticate('twitter', {
+        failureRedirect: '/auth/twitter'
+    }),
+    function (req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
 
 
 const Strategy = require(__dirname + '/models/strategies_oauth.js');
