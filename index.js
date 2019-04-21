@@ -72,12 +72,10 @@ app.get('/auth/twitter/callback',
         res.redirect('/');
     });
 
-// Passport local
-const Account = require(__dirname + '/models/account.js');
-passport.use(new LocalStrategy(Account.authenticate()));
-
 // import Strategies
 const Strategy = require(__dirname + '/models/strategies_oauth.js');
+// Local Strategy
+passport.use(new LocalStrategy(Strategy.local.authenticate()));
 
 // Strategies
 Strategy.google;

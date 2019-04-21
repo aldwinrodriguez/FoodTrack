@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const passport = require('passport');
-const Account = require('../models/account.js');
+const Strategy = require('../models/strategies_oauth.js');
+
 
 // food collections
 const food = require('../models/food.js');
@@ -69,10 +70,11 @@ routeFunctions.register = (req, res) => {
 
 // post register
 routeFunctions.postRegister = (req, res) => {
-    Account.register(new Account({
+    Strategy.local.register(new Strategy.local({
         username: req.body.username,
         name: req.body.username||req.body.name,
         allergies: req.body.allergies,
+        provider: 'local'
     }), req.body.password, function (err, account) {
         if (err) {
 		console.log("TCL: routeFunctions.postRegister -> err", err.name)

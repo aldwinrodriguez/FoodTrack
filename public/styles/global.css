@@ -386,6 +386,7 @@ div.itemContainer:hover {
 
 #registerWrapper {
     padding: 2em 10% 1em;
+    overflow: hidden;
 }
 
 .labelContainer {
