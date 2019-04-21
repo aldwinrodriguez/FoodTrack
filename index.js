@@ -6,8 +6,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 // const passportLocalMongoose = require('passport-local-mongoose');
-const FacebookStrategy = require('passport-facebook').Strategy;
-const TwitterStrategy = require('passport-twitter').Strategy;
+
 
 // my exports
 const timeAndCaps = require(__dirname + '/ex/time.js');
@@ -40,58 +39,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => console.log('we\'re connected!', db.port));
 
 
-const Schemas = mongoose.Schema;
 
-let facebookUser = mongoose.model('facebook', Schemas({
-    _id: String,
-    name: String,
-    f_name: String,
-    email: String,
-    pro_pic: String,
-    provider: String
-}, {
-    versionKey: false
-}))
-
-// Passport facebook
-passport.use(new FacebookStrategy({
-        clientID: process.env.FACEBOOK_APP_ID,
-        clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: "http://localhost:3000/auth/facebook/callback",
-        profileFields: ['id', 'emails', 'name', 'picture']
-    },
-    function (accessToken, refreshToken, profile, cb) {
-        facebookUser.findById({
-            _id: profile.id
-        }, function (err, user) {
-            if (err) {
-                return console.log("TCL: err", err)
-            }
-            if (!user) {
-                let account = new facebookUser({
-                    _id: profile.id,
-                    name: profile.name.givenName + ' ' + profile.name.familyName,
-                    f_name: profile.name.givenName,
-                    email: profile.emails[0].value,
-                    // update
-                    pro_pic: profile.photos[0].value,
-                    provider: profile.provider
-                });
-                account.save(err => {
-                    if (err) return console.log(err);
-                });
-                return cb(err, user);
-            }
-            return cb(err, user);
-        });
-    }
-));
-
-// Passport local
-const Account = require(__dirname + '/models/account.js');
-passport.use(new LocalStrategy(Account.authenticate()));
-// passport.serializeUser(Account.serializeUser());
-// passport.deserializeUser(Account.deserializeUser());
 
 
 
@@ -110,49 +58,7 @@ app.get('/auth/facebook/callback',
     });
 
 
-let twitterUser = mongoose.model('twitter', Schemas({
-    _id: String,
-    name: String,
-    // email: String,
-    pro_pic: String,
-    provider: String
-}, {
-    versionKey: false
-}))
 
-
-// passport twitter
-passport.use(new TwitterStrategy({
-        consumerKey: process.env.TWITTER_CONSUMER_KEY,
-        consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-        callbackURL: "http://localhost:3000/auth/twitter/callback"
-    },
-    function (token, tokenSecret, profile, cb) {
-        twitterUser.findById({
-            _id: profile.id
-        }, function (err, user) {
-            // console.log(profile);
-            if (err) {
-                return console.log(err);
-            }
-            if (!user) {
-                let account = new twitterUser({
-                    _id: profile.id,
-                    name: profile.displayName,
-                    // email: profile.emails[0].value,
-                    // update
-                    pro_pic: profile.photos[0].value,
-                    provider: profile.provider
-                });
-                account.save(err => {
-                    if (err) return console.log(err);
-                });
-                return cb(err, user);
-            }
-            return cb(err, user);
-        });
-    }
-));
 
 app.get('/auth/twitter',
     passport.authenticate('twitter'));
@@ -166,12 +72,19 @@ app.get('/auth/twitter/callback',
         res.redirect('/');
     });
 
+// Passport local
+const Account = require(__dirname + '/models/account.js');
+passport.use(new LocalStrategy(Account.authenticate()));
 
+// import Strategies
 const Strategy = require(__dirname + '/models/strategies_oauth.js');
 
-// passport google
+// Strategies
 Strategy.google;
+Strategy.facebook;
+Strategy.twitter;
 
+// serialize and deserialize
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
@@ -200,6 +113,7 @@ app.get('/logout', routeCb.logout);
 
 // oauths
 const auth = require(__dirname + '/route_cbs/authenticate.js');
+
 // google
 app.get('/auth/google', auth.google);
 app.get('/auth/google/callback', auth.googleCb, (req, res) => res.redirect('/'));

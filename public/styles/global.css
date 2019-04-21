@@ -389,7 +389,7 @@ div.itemContainer:hover {
 }
 
 .labelContainer {
-    margin: 1em auto;
+    margin: 0em auto 1em;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -406,6 +406,25 @@ div.itemContainer:hover {
 
 .w-100 {
     width: 100%;
+}
+
+.required {
+    color: rgb(255, 111, 135);
+    vertical-align: top;
+    font-size: .8em;
+}
+
+.missing {
+    color: rgb(255, 0, 43);
+}
+
+span.required span {
+    font-size: 1.1em;
+    color: rgb(68, 68, 68);
+}
+
+.noMargin {
+    margin: 0;
 }
 
 div.labelContainer .regInputContainer {

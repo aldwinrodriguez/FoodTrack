@@ -23,33 +23,36 @@
                 <input type="radio" name="allergies" value="maybe"> Not that I know of 🤔
             </div>
         </div>
-        <div class="labelContainer spaceBetween">
-            <label for="name" class="w-50">Name</label>
-            <input type="text" name="name" class="w-50 regInputContainer" placeholder="Name">
+        <div class="labelContainer spaceBetween noMargin">
+            <div class="w-50 missing"><%=message%></div>
+            <div class="w-50"><span class="required">*<span>required</span></span></div>
         </div>
         <div class="labelContainer spaceBetween">
-            <label for="email address" class="w-50">Email</label>
-            <input type="text" name="email" class="w-50 regInputContainer" id="" placeholder="Email Address">
+            <label for="name" class="w-50">Name<span class="required">*</span></label>
+            <input type="text" name="name" id="name" class="w-50 regInputContainer" placeholder="Name">
         </div>
         <div class="labelContainer spaceBetween">
-            <label for="username" class="w-50">Username</label>
-            <input type="text" name="username" class="w-50 regInputContainer" id="" placeholder="Username">
+            <label for="username" class="w-50">Username<span class="required">*</span></label>
+            <input type="text" name="username" id="username" class="w-50 regInputContainer" placeholder="Username">
         </div>
         <div class="labelContainer spaceBetween wrapPass">
             <div class="w-50">
-                <label for="password" class="block">Password</label>
-                <input type="password" class="block regInputContainer w-95" name="password" id="" placeholder="Password">
+                <label for="password" class="block">Password<span class="required">*</span></label>
+                <input type="password" class="block regInputContainer w-95" name="password"
+                    placeholder="Password">
             </div>
             <div class="w-50">
-                <label for="Confirm Password" class="block">Confirm Password</label>
-                <input type="password" class="block w-100 regInputContainer" name="confirmPassword" id=""
+                <label for="Confirm Password" class="block">Confirm Password<span class="required">*</span></label>
+                <input type="password" class="block w-100 regInputContainer" name="confirmPassword"
                     placeholder="Confirm Password">
             </div>
         </div>
+        <div class="center intro" id='message'></div>
         <div class='regParent'>
-            <button type="submit" class="register" value="Register">Sign up 😁</button>
+            <button type="submit" class="register" id="signUp" value="Register">Sign up 😁</button>
         </div>
     </form>
 </section>
 
+<script src="/scripts/validation.js"></script>
 <%- include('footer'); -%>

@@ -1,17 +1,16 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+const TwitterStrategy = require('passport-twitter').Strategy;
 const mongoose = require('mongoose');
 
 let strategies = {};
 
-const Schemas = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-// google model
-let googleUser = mongoose.model('google', Schemas({
+let User = mongoose.model('oauth', Schema({
     _id: String,
     name: String,
-    f_name: String,
-    email: String,
     pro_pic: String,
     provider: String
 }, {
@@ -25,20 +24,80 @@ strategies.google = passport.use(new GoogleStrategy({
         callbackURL: "http://localhost:3000/auth/google/callback"
     },
     function (accessToken, refreshToken, profile, cb) {
-        googleUser.findById({
+        User.findById({
             _id: profile.id
         }, function (err, user) {
             console.log(profile);
-            
+
             if (err) {
                 return console.log(err);
             }
             if (!user) {
-                let account = new googleUser({
+                let account = new User({
                     _id: profile.id,
                     name: profile.displayName,
-                    f_name: profile.name.givenName,
-                    email: profile.emails[0].value,
+                    // update
+                    pro_pic: profile.photos[0].value,
+                    provider: profile.provider
+                });
+                account.save(err => {
+                    if (err) return console.log(err);
+                });
+                return cb(err, user);
+            }
+            return cb(err, user);
+        });
+    }
+));
+
+strategies.facebook = passport.use(new FacebookStrategy({
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: "http://localhost:3000/auth/facebook/callback",
+        profileFields: ['id', 'emails', 'name', 'picture']
+    },
+    function (accessToken, refreshToken, profile, cb) {
+        User.findById({
+            _id: profile.id
+        }, function (err, user) {
+            if (err) {
+                return console.log("TCL: err", err)
+            }
+            if (!user) {
+                let account = new User({
+                    _id: profile.id,
+                    name: profile.name.givenName + ' ' + profile.name.familyName,
+                    // update
+                    pro_pic: profile.photos[0].value,
+                    provider: profile.provider
+                });
+                account.save(err => {
+                    if (err) return console.log(err);
+                });
+                return cb(err, user);
+            }
+            return cb(err, user);
+        });
+    }
+));
+
+strategies.twitter = passport.use(new TwitterStrategy({
+        consumerKey: process.env.TWITTER_CONSUMER_KEY,
+        consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+        callbackURL: "http://localhost:3000/auth/twitter/callback"
+    },
+    function (token, tokenSecret, profile, cb) {
+        User.findById({
+            _id: profile.id
+        }, function (err, user) {
+            // console.log(profile);
+            if (err) {
+                return console.log(err);
+            }
+            if (!user) {
+                let account = new User({
+                    _id: profile.id,
+                    name: profile.displayName,
                     // update
                     pro_pic: profile.photos[0].value,
                     provider: profile.provider

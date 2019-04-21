@@ -62,18 +62,26 @@ routeFunctions.register = (req, res) => {
     if (req.user) {
         return res.redirect('/')
     }
-    res.render('register');
+    return res.render('register', {
+        message: ''
+    });
 }
 
 // post register
 routeFunctions.postRegister = (req, res) => {
     Account.register(new Account({
         username: req.body.username,
-        email: req.body.email,
-        name: req.body.name,
+        name: req.body.username||req.body.name,
         allergies: req.body.allergies,
     }), req.body.password, function (err, account) {
         if (err) {
+		console.log("TCL: routeFunctions.postRegister -> err", err.name)
+        // console.log("TCL: routeFunctions.postRegister -> account", account)
+        if (err.name === 'UserExistsError') {
+            return res.render('register', {
+                message: 'User already exist !! Try another one'
+            });
+        }
             return res.render('register', {
                 account: account
             });
