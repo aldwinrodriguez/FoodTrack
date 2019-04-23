@@ -83,13 +83,39 @@ app.route('/')
             // });
             // item.save();
         }
-        // if (removeItem && (operation === 'false')) {
-        //     food.deleteMany({
-        //         food: {
-        //             $in: removeItem
-        //         }
-        //     }, (err, docs) => console.log(docs));
-        // }
+        console.log("TCL: removeItem", removeItem)
+        if (((typeof removeItem) === 'object') && (operation === 'false')) {
+            account.findOneAndUpdate({
+                username: req.user.username
+            }, {
+                $pull: {
+                    food_ate: {
+                        food_name: {
+                            $in: removeItem
+                        }
+                    }
+                }
+            }, (err, docs) => {
+                return (err ? console.log(err) : console.log(docs));
+            });
+            // food.deleteMany({
+            //     food: {
+            //         $in: removeItem
+            //     }
+            // }, (err, docs) => console.log(docs));
+        } else if (((typeof removeItem) === 'string') && (operation === 'false')) {
+            account.findOneAndUpdate({
+                username: req.user.username
+            }, {
+                $pull: {
+                    food_ate: {
+                        food_name: removeItem
+                    }
+                }
+            }, (err, docs) => {
+                return (err ? console.log(err) : console.log(docs));
+            });
+        }
         res.redirect('/');
     });
 

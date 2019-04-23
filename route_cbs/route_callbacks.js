@@ -2,21 +2,24 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const Strategy = require('../models/strategies_oauth.js');
 
-
 // food collections
-const food = require('../models/accounts.js');
+const account = require('../models/accounts.js');
 
 let routeFunctions = {};
 
 // get home
 routeFunctions.home = function (req, res) {
-	// console.log("TCL: routeFunctions.home -> req", req.user)
+    // console.log("TCL: routeFunctions.home -> req", req.user)
     if (req.user) {
-        food.find(function (err, docs) {
-            res.render('home', {
-                item: docs,
-            });
+        account.findOne({
+            username: req.user.username
+        }, (err, user) => {
+            return (err ? console.log(err) :
+                res.render('home', {
+                    item: user.food_ate,
+                }));
         })
+
     } else {
         res.redirect('/login');
     }
@@ -72,18 +75,18 @@ routeFunctions.register = (req, res) => {
 routeFunctions.postRegister = (req, res) => {
     Strategy.local.register(new Strategy.local({
         username: req.body.username,
-        name: req.body.username||req.body.name,
+        name: req.body.username || req.body.name,
         allergies: req.body.allergies,
         provider: 'local'
     }), req.body.password, function (err, account) {
         if (err) {
-		console.log("TCL: routeFunctions.postRegister -> err", err.name)
-        // console.log("TCL: routeFunctions.postRegister -> account", account)
-        if (err.name === 'UserExistsError') {
-            return res.render('register', {
-                message: 'User already exist !! Try another one'
-            });
-        }
+            console.log("TCL: routeFunctions.postRegister -> err", err.name)
+            // console.log("TCL: routeFunctions.postRegister -> account", account)
+            if (err.name === 'UserExistsError') {
+                return res.render('register', {
+                    message: 'User already exist !! Try another one'
+                });
+            }
             return res.render('register', {
                 account: account
             });

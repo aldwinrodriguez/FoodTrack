@@ -4,9 +4,6 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
 const mongoose = require('mongoose');
 
-// my exports
-const timeAndCaps = require('../ex/time.js');
-
 const account = require('../models/accounts.js')
 
 let strategies = {};

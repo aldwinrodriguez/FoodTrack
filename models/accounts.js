@@ -1,14 +1,6 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 
-const foodSchema = new mongoose.Schema({
-    food_name: String,
-    time: Number,
-    day_number: Number,
-}, {
-    versionKey: false
-})
-
 const Account = new mongoose.Schema({
     username: String,
     password: String,
