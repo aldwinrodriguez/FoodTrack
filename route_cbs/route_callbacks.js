@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const Strategy = require('../models/strategies_oauth.js');
 
+const myFunc = require('../ex/time.js');
+
 // food collections
 const account = require('../models/accounts.js');
 
@@ -12,14 +14,29 @@ routeFunctions.home = function (req, res) {
     // console.log("TCL: routeFunctions.home -> req", req.user)
     if (req.user) {
         account.findOne({
-            username: req.user.username
-        }, (err, user) => {
-            return (err ? console.log(err) :
-                res.render('home', {
-                    item: user.food_ate,
-                }));
-        })
+            username: req.user.username,
+        }, 'food_ate', (err, docs) => {
+            if (err) return err;
+            let food = docs.food_ate;
+            let currFood = [];
+            let dayOfMonth = myFunc.getDayOfMonth();
+            food.forEach(element => {
+                if ((element.day_of_month - 1) <= dayOfMonth) {
+                    currFood.push(element);
+                }
+                if (element.dayOfMonth === 1) {
+                    if (element.month-1 === myFunc.getMonth()-1) {
 
+                    }
+                }
+            });
+            console.log(currFood);
+            console.log(docs);
+            return res.render('home', {
+                item: currFood,
+                history: docs.food_ate
+            });
+        })
     } else {
         res.redirect('/login');
     }

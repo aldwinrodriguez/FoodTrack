@@ -21,4 +21,18 @@ funcs.caps = function (str) {
     return first + last;
 }
 
+funcs.getDayOfMonth = function () {
+    return currentTime.getDate();
+}
+
+funcs.getMonth = function () {
+    return currentTime.getMonth();
+}
+
+funcs.lastDayOfPrevMonth = function (m) {
+    let ex = new Date(currentTime.getFullYear, this.getMonth(), 0);
+    console.log(ex);
+    return ex;
+}
+
 module.exports = funcs;

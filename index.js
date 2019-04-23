@@ -69,11 +69,13 @@ app.route('/')
                         food_name: myFunc.caps(addItem),
                         hour: myFunc.getHour(),
                         day: myFunc.getDay(),
-                        dayNum: myFunc.getDayNum()
+                        dayNum: myFunc.getDayNum(),
+                        day_of_month: myFunc.getDayOfMonth(),
+                        month: myFunc.getMonth(),
                     }
                 }
             }, (err, user) => {
-                return (err ? console.log(err) : console.log(user))
+                return (err ? err : user);
             });
             // let item = new food({
             //     food: timeAndCaps.caps(addItem),
@@ -96,7 +98,7 @@ app.route('/')
                     }
                 }
             }, (err, docs) => {
-                return (err ? console.log(err) : console.log(docs));
+                return (err ? err : docs);
             });
             // food.deleteMany({
             //     food: {
@@ -113,7 +115,7 @@ app.route('/')
                     }
                 }
             }, (err, docs) => {
-                return (err ? console.log(err) : console.log(docs));
+                return (err ? err : docs);
             });
         }
         res.redirect('/');
