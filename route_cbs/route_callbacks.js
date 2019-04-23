@@ -4,13 +4,13 @@ const Strategy = require('../models/strategies_oauth.js');
 
 
 // food collections
-const food = require('../models/food.js');
+const food = require('../models/accounts.js');
 
 let routeFunctions = {};
 
 // get home
 routeFunctions.home = function (req, res) {
-	console.log("TCL: routeFunctions.home -> req", req.user)
+	// console.log("TCL: routeFunctions.home -> req", req.user)
     if (req.user) {
         food.find(function (err, docs) {
             res.render('home', {

@@ -2,26 +2,16 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
-const passportLocalMongoose = require('passport-local-mongoose');
 const mongoose = require('mongoose');
+
+// my exports
+const timeAndCaps = require('../ex/time.js');
+
+const account = require('../models/accounts.js')
 
 let strategies = {};
 
-const Account = new mongoose.Schema({
-    username: String,
-    password: String,
-    name: String,
-    allergies: String,
-    pro_pic: String,
-    provider: String
-}, {
-    versionKey: false
-});
-
-
-Account.plugin(passportLocalMongoose);
-
-strategies.local = mongoose.model('Account', Account);
+strategies.local = account;
 
 // passport google
 strategies.google = passport.use(new GoogleStrategy({

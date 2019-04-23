@@ -5,14 +5,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
-// const passportLocalMongoose = require('passport-local-mongoose');
 
-
-// my exports
-const timeAndCaps = require(__dirname + '/ex/time.js');
+const myFunc = require(__dirname + '/ex/time.js');
 
 const app = express();
-
 // app configurations
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -28,7 +24,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 mongoose.set('useCreateIndex', true);
 
-
 // mongoDB config
 mongoose.connect('mongodb://localhost:27017/FoodTrack', {
     useNewUrlParser: true
@@ -38,45 +33,10 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => console.log('we\'re connected!', db.port));
 
-
-
-
-
-
-app.get('/auth/facebook',
-    passport.authenticate('facebook', {
-        scope: ['email']
-    }));
-
-app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {
-        failureRedirect: '/auth/facebook'
-    }),
-    function (req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-    });
-
-
-
-
-app.get('/auth/twitter',
-    passport.authenticate('twitter'));
-
-app.get('/auth/twitter/callback',
-    passport.authenticate('twitter', {
-        failureRedirect: '/auth/twitter'
-    }),
-    function (req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-    });
-
 // import Strategies
 const Strategy = require(__dirname + '/models/strategies_oauth.js');
 // Local Strategy
 passport.use(new LocalStrategy(Strategy.local.authenticate()));
-
 // Strategies
 Strategy.google;
 Strategy.facebook;
@@ -86,15 +46,52 @@ Strategy.twitter;
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
-
-
-
 // Routes
 const routeCb = require(__dirname + '/route_cbs/route_callbacks.js');
 
+const account = require(__dirname + '/models/accounts.js');
+
 // home
 app.route('/')
-    .get(routeCb.home);
+    .get(routeCb.home)
+    .post((req, res) => {
+        let addItem = req.body.newItem;
+        console.log("TCL: addItem", addItem)
+        let removeItem = req.body.removeItem;
+        let operation = req.body.operation;
+
+        if (addItem && (operation === 'true')) {
+            account.findOneAndUpdate({
+                username: req.user.username
+            }, {
+                $push: {
+                    food_ate: {
+                        food_name: myFunc.caps(addItem),
+                        hour: myFunc.getHour(),
+                        day: myFunc.getDay(),
+                        dayNum: myFunc.getDayNum()
+                    }
+                }
+            }, (err, user) => {
+                return (err ? console.log(err) : console.log(user))
+            });
+            // let item = new food({
+            //     food: timeAndCaps.caps(addItem),
+            //     hour: timeAndCaps.getHour(),
+            //     day: timeAndCaps.getDay(),
+            //     dayNum: timeAndCaps.getDayNum()
+            // });
+            // item.save();
+        }
+        // if (removeItem && (operation === 'false')) {
+        //     food.deleteMany({
+        //         food: {
+        //             $in: removeItem
+        //         }
+        //     }, (err, docs) => console.log(docs));
+        // }
+        res.redirect('/');
+    });
 
 // login
 app.route('/login')
@@ -112,9 +109,17 @@ app.get('/logout', routeCb.logout);
 // oauths
 const auth = require(__dirname + '/route_cbs/authenticate.js');
 
-// google
+// google request
 app.get('/auth/google', auth.google);
 app.get('/auth/google/callback', auth.googleCb, (req, res) => res.redirect('/'));
+
+// facebook request
+app.get('/auth/facebook', auth.facebook);
+app.get('/auth/facebook/callback', auth.facebookCb, (req, res) => res.redirect('/'));
+
+// twitter request
+app.get('/auth/twitter', auth.twitter);
+app.get('/auth/twitter/callback', auth.twitterCb, (req, res) => res.redirect('/'));
 
 // temp
 app.get('/policy', (req, res) => {
