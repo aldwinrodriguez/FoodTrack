@@ -72,6 +72,7 @@ app.route('/')
                         dayNum: myFunc.getDayNum(),
                         day_of_month: myFunc.getDayOfMonth(),
                         month: myFunc.getMonth(),
+                        year: myFunc.getYear(),
                     }
                 }
             }, (err, user) => {

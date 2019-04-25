@@ -19,16 +19,33 @@ routeFunctions.home = function (req, res) {
             if (err) return err;
             let food = docs.food_ate;
             let currFood = [];
-            let dayOfMonth = myFunc.getDayOfMonth();
+            let currentDay = myFunc.getDayOfMonth();
+            let yesterday = currentDay - 1; // can be 0
+            let year = myFunc.getYear();
+            let month = myFunc.getMonth();
             food.forEach(element => {
-                if ((element.day_of_month - 1) <= dayOfMonth) {
+                let elDay = element.day_of_month;
+                let elYear = element.year;
+                let elMonth = element.month;
+
+                //every first of month, have to get the last day before the current month
+                if (currentDay === 1) {
+                    let prevMonth = myFunc.getMonth() - 1;
+                    if (prevMonth === -1) {
+                        prevMonth = 12;
+                        year--;
+                    }
+                    if ((prevMonth === elMonth) && (elDay === myFunc.lastDayOfPrevMonth(year, prevMonth))) {
+                        currFood.push(element);
+                    }
+                } else if ((yesterday <= elDay) && (elYear === year) && (elMonth === month)) {
                     currFood.push(element);
                 }
-                if (element.dayOfMonth === 1) {
-                    if (element.month-1 === myFunc.getMonth()-1) {
+                // new year, 
+                // let month = myFunc.getMonth();
+                // if (month === 1) {
 
-                    }
-                }
+                // }
             });
             console.log(currFood);
             console.log(docs);

@@ -29,10 +29,12 @@ funcs.getMonth = function () {
     return currentTime.getMonth();
 }
 
-funcs.lastDayOfPrevMonth = function (m) {
-    let ex = new Date(currentTime.getFullYear, this.getMonth(), 0);
-    console.log(ex);
-    return ex;
+funcs.getYear = function () {
+    return currentTime.getFullYear();
+}
+
+funcs.lastDayOfPrevMonth = function (y, m) {
+    return new Date(y, m, 0).getDate();
 }
 
 module.exports = funcs;
