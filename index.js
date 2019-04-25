@@ -49,78 +49,10 @@ passport.deserializeUser((user, done) => done(null, user));
 // Routes
 const routeCb = require(__dirname + '/route_cbs/route_callbacks.js');
 
-const account = require(__dirname + '/models/accounts.js');
-
 // home
 app.route('/')
     .get(routeCb.home)
-    .post((req, res) => {
-        let addItem = req.body.newItem;
-        console.log("TCL: addItem", addItem)
-        let removeItem = req.body.removeItem;
-        let operation = req.body.operation;
-
-        if (addItem && (operation === 'true')) {
-            account.findOneAndUpdate({
-                username: req.user.username
-            }, {
-                $push: {
-                    food_ate: {
-                        food_name: myFunc.caps(addItem),
-                        hour: myFunc.getHour(),
-                        day: myFunc.getDay(),
-                        dayNum: myFunc.getDayNum(),
-                        day_of_month: myFunc.getDayOfMonth(),
-                        month: myFunc.getMonth(),
-                        year: myFunc.getYear(),
-                    }
-                }
-            }, (err, user) => {
-                return (err ? err : user);
-            });
-            // let item = new food({
-            //     food: timeAndCaps.caps(addItem),
-            //     hour: timeAndCaps.getHour(),
-            //     day: timeAndCaps.getDay(),
-            //     dayNum: timeAndCaps.getDayNum()
-            // });
-            // item.save();
-        }
-        console.log("TCL: removeItem", removeItem)
-        if (((typeof removeItem) === 'object') && (operation === 'false')) {
-            account.findOneAndUpdate({
-                username: req.user.username
-            }, {
-                $pull: {
-                    food_ate: {
-                        food_name: {
-                            $in: removeItem
-                        }
-                    }
-                }
-            }, (err, docs) => {
-                return (err ? err : docs);
-            });
-            // food.deleteMany({
-            //     food: {
-            //         $in: removeItem
-            //     }
-            // }, (err, docs) => console.log(docs));
-        } else if (((typeof removeItem) === 'string') && (operation === 'false')) {
-            account.findOneAndUpdate({
-                username: req.user.username
-            }, {
-                $pull: {
-                    food_ate: {
-                        food_name: removeItem
-                    }
-                }
-            }, (err, docs) => {
-                return (err ? err : docs);
-            });
-        }
-        res.redirect('/');
-    });
+    .post(routeCb.postHome);
 
 // login
 app.route('/login')

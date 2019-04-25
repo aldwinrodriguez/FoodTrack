@@ -7,12 +7,8 @@ funcs.getHour = function () {
     return currentTime.getHours();
 }
 
-funcs.getDayNum = function () {
-    return currentTime.getDay();
-}
-
 funcs.getDay = function () {
-    return days[this.getDayNum()];
+    return days[currentTime.getDay()];
 }
 
 funcs.caps = function (str) {
