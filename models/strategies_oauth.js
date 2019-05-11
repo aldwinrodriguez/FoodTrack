@@ -77,7 +77,7 @@ strategies.facebook = passport.use(new FacebookStrategy({
 strategies.twitter = passport.use(new TwitterStrategy({
         consumerKey: process.env.TWITTER_CONSUMER_KEY,
         consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-        callbackURL: "http://localhost:3000/auth/twitter/callback"
+        callbackURL: "http://foodtrack2019.com/auth/twitter/callback"
     },
     function (token, tokenSecret, profile, cb) {
         strategies.local.findOne({
