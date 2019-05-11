@@ -23,7 +23,8 @@ app.use(passport.session());
 mongoose.set('useCreateIndex', true);
 
 // mongoDB config
-mongoose.connect('mongodb://localhost:27017/FoodTrack', {
+let connection = 'mongodb+srv://aldwin:'+process.env.MONGOUSER1+'@foodtrack-scwic.mongodb.net/test?retryWrites=true'
+mongoose.connect(connection, {
     useNewUrlParser: true
 });
 
@@ -87,5 +88,8 @@ app.get('/auth/twitter/callback', auth.twitterCb, (req, res) => res.redirect('/'
 // temporary policy
 app.get('/policy', routeCb.policy);
 
-
-app.listen(3000, () => console.log('starting'));
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
+app.listen(port);
