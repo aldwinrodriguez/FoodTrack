@@ -14,7 +14,7 @@ strategies.local = account;
 strategies.google = passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/auth/google/callback"
+        callbackURL: "http://foodtrack2019.com/auth/google/callback"
     },
     function (accessToken, refreshToken, profile, cb) {
         strategies.local.findOne({
