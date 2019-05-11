@@ -1,6 +1,7 @@
 const passport = require('passport');
 const Strategy = require('../models/strategies_oauth.js');
 
+// date and caps
 const myFunc = require('../ex/time.js');
 
 // account collections
@@ -14,7 +15,7 @@ routeFunctions.home = function (req, res) {
     if (req.user) {
         account.findOne({
             username: req.user.username,
-        }, 'food_ate', (err, docs) => {
+        }, 'food_ate reacted', (err, docs) => {
             if (err) return err;
             let food = docs.food_ate;
             let currFood = [];
@@ -48,10 +49,12 @@ routeFunctions.home = function (req, res) {
                     currFood.push(element);
                 }
             });
+			console.log("TCL: routeFunctions.home -> reacted", docs.reacted)
             return res.render('home', {
                 item: currFood,
                 history: docs.food_ate,
-                name: docs.name
+                name: docs.name,
+                reacted: docs.reacted
             });
         })
     } else {
@@ -188,6 +191,11 @@ routeFunctions.postRegister = (req, res) => {
 routeFunctions.logout = function (req, res) {
     req.logout();
     res.redirect('/');
+}
+
+// temporary policy
+routeFunctions.policy = (req, res) => {
+    res.send('Privacy Policy of FoodTrack FoodTrack operates the FoodTrack website, which provides the SERVICE. This page is used to inform website visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service, the FoodTrack. If you choose to use our Service, then you agree to the collection and use of information in relation with this policy. The Personal Information that we collect are used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy. The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at localhost:3000, unless otherwise defined in this Privacy Policy.')
 }
 
 module.exports = routeFunctions;

@@ -9,6 +9,7 @@ const Account = new mongoose.Schema({
     pro_pic: String,
     provider: String,
     food_ate: Array,
+    reacted: Array,
 }, {
     versionKey: false
 });
