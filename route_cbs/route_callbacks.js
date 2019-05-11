@@ -12,54 +12,55 @@ let routeFunctions = {};
 // get home
 routeFunctions.home = function (req, res) {
     // console.log("TCL: routeFunctions.home -> req", req.user)
-    if (req.user) {
-        account.findOne({
-            username: req.user.username,
-        }, 'food_ate reacted', (err, docs) => {
-            if (err) return err;
-            let food = docs.food_ate;
-            let currFood = [];
-            let currentDay = myFunc.getDayOfMonth();
-            let yesterday = currentDay - 1; // can be 0
-            let year = myFunc.getYear();
-            let month = myFunc.getMonth();
-            food.forEach(element => {
-                let elDay = element.day_of_month;
-                let elYear = element.year;
-                let elMonth = element.month;
+    // if (req.user) {
+    //     account.findOne({
+    //         username: req.user.username,
+    //     }, 'food_ate reacted', (err, docs) => {
+    //         if (err) return err;
+    //         let food = docs.food_ate;
+    //         let currFood = [];
+    //         let currentDay = myFunc.getDayOfMonth();
+    //         let yesterday = currentDay - 1; // can be 0
+    //         let year = myFunc.getYear();
+    //         let month = myFunc.getMonth();
+    //         food.forEach(element => {
+    //             let elDay = element.day_of_month;
+    //             let elYear = element.year;
+    //             let elMonth = element.month;
 
-                //every first of month, have to get the last day before the current month
-                if (currentDay === 1) {
-                    let prevMonth = myFunc.getMonth() - 1;
-                    let thisYear = year;
-                    // including the first day
-                    if ((month === elMonth) && (currentDay === elDay) && (year === elYear)) {
-                        currFood.push(element);
-                    }
-                    // to set the get operation for last day of last year
-                    if (prevMonth === -1) {
-                        prevMonth = 12;
-                        thisYear--;
-                    }
-                    // to get the last day of last year
-                    if ((prevMonth === elMonth) && (elDay === myFunc.lastDayOfPrevMonth(thisYear, prevMonth)) && (thisYear === elYear)) {
-                        currFood.push(element);
-                    }
-                } else if ((yesterday <= elDay) && (elYear === year) && (elMonth === month)) {
-                    currFood.push(element);
-                }
-            });
-			console.log("TCL: routeFunctions.home -> reacted", docs.reacted)
-            return res.render('home', {
-                item: currFood,
-                history: docs.food_ate,
-                name: docs.name,
-                reacted: docs.reacted
-            });
-        })
-    } else {
-        res.redirect('/login');
-    }
+    //             //every first of month, have to get the last day before the current month
+    //             if (currentDay === 1) {
+    //                 let prevMonth = myFunc.getMonth() - 1;
+    //                 let thisYear = year;
+    //                 // including the first day
+    //                 if ((month === elMonth) && (currentDay === elDay) && (year === elYear)) {
+    //                     currFood.push(element);
+    //                 }
+    //                 // to set the get operation for last day of last year
+    //                 if (prevMonth === -1) {
+    //                     prevMonth = 12;
+    //                     thisYear--;
+    //                 }
+    //                 // to get the last day of last year
+    //                 if ((prevMonth === elMonth) && (elDay === myFunc.lastDayOfPrevMonth(thisYear, prevMonth)) && (thisYear === elYear)) {
+    //                     currFood.push(element);
+    //                 }
+    //             } else if ((yesterday <= elDay) && (elYear === year) && (elMonth === month)) {
+    //                 currFood.push(element);
+    //             }
+    //         });
+	// 		console.log("TCL: routeFunctions.home -> reacted", docs.reacted)
+    //         return res.render('home', {
+    //             item: currFood,
+    //             history: docs.food_ate,
+    //             name: docs.name,
+    //             reacted: docs.reacted
+    //         });
+    //     })
+    // } else {
+    //     res.redirect('/login');
+    // }
+    res.send('hi');
 }
 
 routeFunctions.postHome = (req, res) => {
