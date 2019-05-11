@@ -8,6 +8,9 @@
   },
   "author": "Aldwin Rodriguez",
   "license": "ISC",
+  "engines": {
+    "node": "10.14.2"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
