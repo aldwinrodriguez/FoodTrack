@@ -4,7 +4,7 @@ let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 let funcs = {};
 
 funcs.getHour = function () {
-    return currentTime.getHours();
+    return currentTime.getHours()-3;
 }
 
 funcs.getDay = function () {
