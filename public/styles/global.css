@@ -11,6 +11,7 @@
 body {
     background: linear-gradient(to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%) no-repeat fixed center;
     /* background: lightblue url("/images/beach-blur-close-up-949215.jpg") no-repeat fixed center; */
+    min-height: 100vh;
 }
 
 a {

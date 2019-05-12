@@ -46,7 +46,7 @@ strategies.google = passport.use(new GoogleStrategy({
 strategies.facebook = passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: "http://localhost:3000/auth/facebook/callback",
+        callbackURL: "https://foodtrack2019.com/auth/facebook/callback",
         profileFields: ['id', 'emails', 'name', 'picture']
     },
     function (accessToken, refreshToken, profile, cb) {
