@@ -74,7 +74,7 @@ routeFunctions.postHome = (req, res) => {
             $push: {
                 food_ate: {
                     food_name: myFunc.caps(addItem),
-                    hour: myFunc.getHour(),
+                    hour: myFunc.getHour()+9,
                     day: myFunc.getDay(),
                     day_of_month: myFunc.getDayOfMonth(),
                     month: myFunc.getMonth(),
