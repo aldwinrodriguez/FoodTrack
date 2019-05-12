@@ -19,9 +19,9 @@
                 <% if (element.hour === 0) { %>
                 <span class='left'>12 am</span>
                 <% } else if (element.hour < 12){ %>
-                <span class='left'><%=element.hour%> am</span>
+                <span class='left'><%=element.hour%> pm</span>
                 <% } else { %>
-                <span class='left'><%=element.hour - 12%> pm</span>
+                <span class='left'><%=element.hour - 12%> am</span>
                 <% } %>
                 <span class="right"><%=element.day%></span>
             </div>
