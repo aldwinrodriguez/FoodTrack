@@ -28,7 +28,7 @@ mongoose.set('useCreateIndex', true);
 //     useNewUrlParser: true
 // });
 
-mongoose.connect(process.env.MONGOUSER1, {
+mongoose.connect(process.env.CONNECTION, {
     useNewUrlParser: true
 });
 
