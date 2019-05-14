@@ -28,8 +28,7 @@ mongoose.set('useCreateIndex', true);
 //     useNewUrlParser: true
 // });
 
-// let connection = 'mongodb+srv://aldwin:aldwin0405@foodtrack-scwic.mongodb.net/test?retryWrites=true'
-mongoose.connect(process.env.CONNECTION, {
+mongoose.connect(connection, {
     useNewUrlParser: true
 });
 

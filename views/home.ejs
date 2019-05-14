@@ -6,6 +6,7 @@
             class="titleFirst">T</span><span class="titleChild">rack</span>
     </div>
 </section>
+<div id="show">ha</div>
 <section id='homeWrapper' class='wrapper'>
     <p class="center">List of food that you ate within 2 days</p>
     <% item.forEach(element => { %>
@@ -53,5 +54,9 @@
 
 </div>
 
+<script>
+    let date = new Date();
+    document.getElementById('show').textContent = date;
+</script>
 <script src="/scripts/script.js"></script>
 <%- include('footer'); -%>
