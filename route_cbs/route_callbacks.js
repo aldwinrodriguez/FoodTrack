@@ -66,6 +66,8 @@ routeFunctions.postHome = (req, res) => {
     let addItem = req.body.newItem;
     let removeItem = req.body.removeItem;
     let operation = req.body.operation;
+    let day = req.body.day;
+    let hour = req.body.hour;
 
     if (addItem && (operation === 'true')) {
         account.findOneAndUpdate({
@@ -74,8 +76,8 @@ routeFunctions.postHome = (req, res) => {
             $push: {
                 food_ate: {
                     food_name: myFunc.caps(addItem),
-                    hour: myFunc.getHour()+8,
-                    day: myFunc.getDay(),
+                    hour: hour,
+                    day: day,
                     day_of_month: myFunc.getDayOfMonth(),
                     month: myFunc.getMonth(),
                     year: myFunc.getYear(),

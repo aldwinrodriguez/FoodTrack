@@ -6,7 +6,6 @@
             class="titleFirst">T</span><span class="titleChild">rack</span>
     </div>
 </section>
-<div id="show">ha</div>
 <section id='homeWrapper' class='wrapper'>
     <p class="center">List of food that you ate within 2 days</p>
     <% item.forEach(element => { %>
@@ -20,9 +19,9 @@
                 <% if (element.hour === 0) { %>
                 <span class='left'>12 am</span>
                 <% } else if (element.hour < 12){ %>
-                <span class='left'><%=element.hour%> pm</span>
+                <span class='left'><%=element.hour%> am</span>
                 <% } else { %>
-                <span class='left'><%=element.hour - 12%> am</span>
+                <span class='left'><%=element.hour - 12%> pm</span>
                 <% } %>
                 <span class="right"><%=element.day%></span>
             </div>
@@ -32,6 +31,8 @@
         <form action="/" method="post">
             <% } %>
             <div class='itemInputContainer'>
+                <input id="dateHour" type="" name='hour' style="display: none;">
+                <input id="dateDay" type="" name='day' style="display: none;">
                 <input class="" type="text" name="newItem" id='itemInput' placeholder="What went down must come down?"
                     autofocus autocomplete="off">
             </div>
@@ -56,7 +57,9 @@
 
 <script>
     let date = new Date();
-    document.getElementById('show').textContent = date;
+    let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    document.getElementById('dateHour').value = date.getHours();
+    document.getElementById('dateDay').value = days[date.getDay()];
 </script>
 <script src="/scripts/script.js"></script>
 <%- include('footer'); -%>

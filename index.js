@@ -23,10 +23,6 @@ app.use(passport.session());
 mongoose.set('useCreateIndex', true);
 
 // mongoDB config
-// let connection = 'mongodb+srv://aldwin:'+process.env.MONGOUSER1+'@foodtrack-scwic.mongodb.net/test?retryWrites=true'
-// mongoose.connect(connection, {
-//     useNewUrlParser: true
-// });
 
 mongoose.connect(process.env.CONNECTION, {
     useNewUrlParser: true
