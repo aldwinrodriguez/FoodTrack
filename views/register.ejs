@@ -1,54 +1,93 @@
 <%- include('header'); -%>
 
-<section id='title'>
-    <div>
-        <span class="titleContainer"><span class="titleFirst">F</span><span class="titleChild">ood</span></span><span
-            class="titleFirst">T</span><span class="titleChild">rack</span>
-    </div>
+<section id="title">
+  <div>
+    <span class="titleContainer"
+      ><span class="titleFirst">F</span
+      ><span class="titleChild">ood</span></span
+    ><span class="titleFirst">T</span><span class="titleChild">rack</span>
+  </div>
 </section>
-<section id='registerWrapper' class='wrapper'>
-    <div class="center intro">The purpose of this app is to track food that you consumed and lists everything you ate within
-        2 days. If 'REACTION' button (not implemented yet) is pressed, this tells the app that something you ate within 2 days caused a reaction. This app can
-        also be used as a food tracker if you have undiscovered food reaction</div>
-    <form action="/register" method="post">
-        <div class="labelContainer spaceBetween wrap">
-            <div class="w-50">
-                <label for="allergies">Do you have any allergies? </label>
-            </div>
-            <div class="center w-50">
-                <input type="radio" name="allergies" value="yes"> Yes
-                <input type="radio" name="allergies" value="no"> No
-                <input type="radio" name="allergies" value="maybe"> Not that I know of 🤔
-            </div>
-        </div>
-        <div class="labelContainer spaceBetween noMargin">
-            <div class="w-50 missing"><%=message%></div>
-            <div class="w-50"><span class="required">*<span>required</span></span></div>
-        </div>
-        <div class="labelContainer spaceBetween">
-            <label for="name" class="w-50">Name<span class="required">*</span></label>
-            <input type="text" name="name" id="name" class="w-50 regInputContainer" placeholder="Name">
-        </div>
-        <div class="labelContainer spaceBetween">
-            <label for="username" class="w-50">Username<span class="required">*</span></label>
-            <input type="text" name="username" id="username" class="w-50 regInputContainer" placeholder="Username">
-        </div>
-        <div class="labelContainer spaceBetween wrapPass">
-            <div class="w-50">
-                <label for="password" class="block">Password<span class="required">*</span></label>
-                <input type="password" class="block regInputContainer w-95" name="password" placeholder="Password">
-            </div>
-            <div class="w-50">
-                <label for="Confirm Password" class="block">Confirm Password<span class="required">*</span></label>
-                <input type="password" class="block w-100 regInputContainer" name="confirmPassword"
-                    placeholder="Confirm Password">
-            </div>
-        </div>
-        <div class="center intro" id='message'></div>
-        <div class='regParent'>
-            <button type="submit" class="register" id="signUp" value="Register">Sign up 😁</button>
-        </div>
-    </form>
+<section id="registerWrapper" class="wrapper">
+  <div class="center intro">
+    The purpose of this app is to track food that you consumed and lists
+    everything you ate within 2 days. If 'REACTION' button (not implemented yet)
+    is pressed, this tells the app that something you ate within 2 days caused a
+    reaction. This app can also be used as a food tracker if you have
+    undiscovered food reaction
+  </div>
+  <form action="/register" method="post">
+    <div class="labelContainer spaceBetween wrap">
+      <div class="w-50">
+        <label for="allergies">Do you have any allergies? </label>
+      </div>
+      <div class="center w-50">
+        <input type="radio" name="allergies" value="yes" /> Yes
+        <input type="radio" name="allergies" value="no" /> No
+        <input type="radio" name="allergies" value="maybe" /> Not that I know of
+        🤔
+      </div>
+    </div>
+    <div class="labelContainer spaceBetween noMargin">
+      <div class="w-50 missing"></div>
+      <div class="w-50">
+        <span class="required">*<span>required</span></span>
+      </div>
+    </div>
+    <div class="labelContainer spaceBetween">
+      <label for="name" class="w-50">Name<span class="required">*</span></label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        class="w-50 regInputContainer"
+        placeholder="Name"
+      />
+    </div>
+    <div class="labelContainer spaceBetween">
+      <label for="username" class="w-50"
+        >Username<span class="required">*</span></label
+      >
+      <input
+        type="text"
+        name="username"
+        id="username"
+        class="w-50 regInputContainer"
+        placeholder="Username"
+      />
+    </div>
+    <div class="labelContainer spaceBetween wrapPass">
+      <div class="w-50">
+        <label for="password" class="block"
+          >Password<span class="required">*</span></label
+        >
+        <input
+          type="password"
+          class="block regInputContainer w-95"
+          name="password"
+          placeholder="Password"
+        />
+      </div>
+      <div class="w-50">
+        <label for="Confirm Password" class="block"
+          >Confirm Password<span class="required">*</span></label
+        >
+        <input
+          type="password"
+          class="block w-100 regInputContainer"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+        />
+      </div>
+    </div>
+    <div class="center intro" id="message"></div>
+    <div class="regParent">
+      <div class="center missing"><%=message%></div>
+      <button type="submit" class="register" id="signUp" value="Register">
+        Sign up 😁
+      </button>
+    </div>
+  </form>
 </section>
 
 <script src="/scripts/validation.js"></script>
