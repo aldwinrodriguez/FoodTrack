@@ -43,36 +43,43 @@ strategies.local = account;
 //     }
 // ));
 
-// strategies.facebook = passport.use(new FacebookStrategy({
-//         clientID: process.env.FACEBOOK_APP_ID,
-//         clientSecret: process.env.FACEBOOK_APP_SECRET,
-//         callbackURL: "https://foodtrack2019.com/auth/facebook/callback",
-//         profileFields: ['id', 'emails', 'name', 'picture']
-//     },
-//     function (accessToken, refreshToken, profile, cb) {
-//         strategies.local.findOne({
-//             username: profile.id
-//         }, function (err, user) {
-//             if (err) {
-//                 return console.log("TCL: err", err)
-//             }
-//             if (!user) {
-//                 let account = new strategies.local({
-//                     username: profile.id,
-//                     name: profile.name.givenName + ' ' + profile.name.familyName,
-//                     // update
-//                     pro_pic: profile.photos[0].value,
-//                     provider: profile.provider
-//                 });
-//                 account.save(err => {
-//                     if (err) return console.log(err);
-//                 });
-//                 return cb(err, user);
-//             }
-//             return cb(err, user);
-//         });
-//     }
-// ));
+strategies.facebook = passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL:
+        "https://secure-brook-77575.herokuapp.com/auth/facebook/callback",
+      profileFields: ["id", "emails", "name", "picture"],
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      strategies.local.findOne(
+        {
+          username: profile.id,
+        },
+        function (err, user) {
+          if (err) {
+            return console.log("TCL: err", err);
+          }
+          if (!user) {
+            let account = new strategies.local({
+              username: profile.id,
+              name: profile.name.givenName + " " + profile.name.familyName,
+              // update
+              pro_pic: profile.photos[0].value,
+              provider: profile.provider,
+            });
+            account.save((err) => {
+              if (err) return console.log(err);
+            });
+            return cb(err, user);
+          }
+          return cb(err, user);
+        }
+      );
+    }
+  )
+);
 
 // strategies.twitter = passport.use(new TwitterStrategy({
 //         consumerKey: process.env.TWITTER_CONSUMER_KEY,
