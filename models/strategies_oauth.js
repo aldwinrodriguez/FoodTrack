@@ -81,35 +81,42 @@ strategies.facebook = passport.use(
   )
 );
 
-// strategies.twitter = passport.use(new TwitterStrategy({
-//         consumerKey: process.env.TWITTER_CONSUMER_KEY,
-//         consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-//         callbackURL: "http://foodtrack2019.com/auth/twitter/callback"
-//     },
-//     function (token, tokenSecret, profile, cb) {
-//         strategies.local.findOne({
-//             username: profile.id
-//         }, function (err, user) {
-//             // console.log(profile);
-//             if (err) {
-//                 return console.log(err);
-//             }
-//             if (!user) {
-//                 let account = new strategies.local({
-//                     username: profile.id,
-//                     name: profile.displayName,
-//                     // update
-//                     pro_pic: profile.photos[0].value,
-//                     provider: profile.provider
-//                 });
-//                 account.save(err => {
-//                     if (err) return console.log(err);
-//                 });
-//                 return cb(err, user);
-//             }
-//             return cb(err, user);
-//         });
-//     }
-// ));
+strategies.twitter = passport.use(
+  new TwitterStrategy(
+    {
+      consumerKey: process.env.TWITTER_CONSUMER_KEY,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+      callbackURL:
+        "https://secure-brook-77575.herokuapp.com/auth/twitter/callback",
+    },
+    function (token, tokenSecret, profile, cb) {
+      strategies.local.findOne(
+        {
+          username: profile.id,
+        },
+        function (err, user) {
+          // console.log(profile);
+          if (err) {
+            return console.log(err);
+          }
+          if (!user) {
+            let account = new strategies.local({
+              username: profile.id,
+              name: profile.displayName,
+              // update
+              pro_pic: profile.photos[0].value,
+              provider: profile.provider,
+            });
+            account.save((err) => {
+              if (err) return console.log(err);
+            });
+            return cb(err, user);
+          }
+          return cb(err, user);
+        }
+      );
+    }
+  )
+);
 
 module.exports = strategies;
