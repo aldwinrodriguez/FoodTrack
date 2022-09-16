@@ -6,7 +6,7 @@
             class="titleFirst">T</span><span class="titleChild">rack</span>
     </div>
 </section>
-<section id='homeWrapper' class='wrapper'>
+<section id='homeWrapper' class='wrapper' style="color:#43414B">
     <p class="center">List of food that you ate within 2 days</p>
     <% item.forEach(element => { %>
     <form action="/" method="post">
@@ -33,7 +33,7 @@
             <div class='itemInputContainer'>
                 <input id="dateHour" type="" name='hour' style="display: none;">
                 <input id="dateDay" type="" name='day' style="display: none;">
-                <input class="" type="text" name="newItem" id='itemInput' placeholder="What went down must come down?"
+                <input class="" type="text" name="newItem" id='itemInput' placeholder="Food name"
                     autofocus autocomplete="off">
             </div>
             <div class='center padding'>
