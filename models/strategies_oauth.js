@@ -11,37 +11,44 @@ let strategies = {};
 strategies.local = account;
 
 // passport google
-// strategies.google = passport.use(new GoogleStrategy({
-//         clientID: process.env.GOOGLE_CLIENT_ID,
-//         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//         callbackURL: "http://foodtrack2019.com/auth/google/callback"
-//     },
-//     function (accessToken, refreshToken, profile, cb) {
-//         strategies.local.findOne({
-//             username: profile.id
-//         }, function (err, user) {
-//             console.log(profile);
+strategies.google = passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL:
+        "https://secure-brook-77575.herokuapp.com/auth/google/callback",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      strategies.local.findOne(
+        {
+          username: profile.id,
+        },
+        function (err, user) {
+          console.log(profile);
 
-//             if (err) {
-//                 return console.log(err);
-//             }
-//             if (!user) {
-//                 let account = new strategies.local({
-//                     username: profile.id,
-//                     name: profile.displayName,
-//                     // update
-//                     pro_pic: profile.photos[0].value,
-//                     provider: profile.provider
-//                 });
-//                 account.save(err => {
-//                     if (err) return console.log(err);
-//                 });
-//                 return cb(err, user);
-//             }
-//             return cb(err, user);
-//         });
-//     }
-// ));
+          if (err) {
+            return console.log(err);
+          }
+          if (!user) {
+            let account = new strategies.local({
+              username: profile.id,
+              name: profile.displayName,
+              // update
+              pro_pic: profile.photos[0].value,
+              provider: profile.provider,
+            });
+            account.save((err) => {
+              if (err) return console.log(err);
+            });
+            return cb(err, user);
+          }
+          return cb(err, user);
+        }
+      );
+    }
+  )
+);
 
 strategies.facebook = passport.use(
   new FacebookStrategy(
