@@ -16,8 +16,7 @@ strategies.google = passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL:
-        "https://secure-brook-77575.herokuapp.com/auth/google/callback",
+      callbackURL: "https://foodtrack2022.herokuapp.com/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
       strategies.local.findOne(
@@ -55,8 +54,7 @@ strategies.facebook = passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL:
-        "https://secure-brook-77575.herokuapp.com/auth/facebook/callback",
+      callbackURL: "https://foodtrack2022.herokuapp.com/auth/facebook/callback",
       profileFields: ["id", "emails", "name", "picture"],
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -93,8 +91,7 @@ strategies.twitter = passport.use(
     {
       consumerKey: process.env.TWITTER_CONSUMER_KEY,
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-      callbackURL:
-        "https://secure-brook-77575.herokuapp.com/auth/twitter/callback",
+      callbackURL: "https://foodtrack2022.herokuapp.com/auth/twitter/callback",
     },
     function (token, tokenSecret, profile, cb) {
       strategies.local.findOne(
