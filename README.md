@@ -6,7 +6,8 @@
 
 # Demo: https://foodtrack2022.herokuapp.com/
 ### Web view
-<img src="screenshots/web.png" alt="alt text" width="848" height="434">    
+<img src="screenshots/web.png" alt="alt text" width="848" height="434">  
+
 ### Mobile view
 <img src="screenshots/phone.jpg" alt="alt text" width="360" height="669">  
 
