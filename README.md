@@ -26,3 +26,4 @@ Delete items by highlighting item/s and pressing "-"
 ## Keep in mind: These datas are stored in a Database, so you can come back anytime.  
 
 For more, email me at aldwindrodriguez@gmail.com
+ 
