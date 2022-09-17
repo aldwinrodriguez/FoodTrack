@@ -18,10 +18,10 @@ or Register
 <img src="screenshots/register.png" alt="alt text" width="774" height="393">  
 
 Add items by Typing the food and pressing "+"  
-<img src="screenshots/add.png" alt="alt text" width="625" height="1127">  
+<img src="screenshots/add.png" alt="alt text" width="312" height="563">  
 
 Delete items by highlighting item/s and pressing "-"  
-<img src="screenshots/delete.png" alt="alt text" width="625" height="1127">  
+<img src="screenshots/delete.png" alt="alt text" width="312" height="563">  
 
 ## Keep in mind: These datas are stored in a Database, so you can come back anytime.  
 
