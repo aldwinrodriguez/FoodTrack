@@ -1,7 +1,7 @@
 # FoodTrack
 ## Summary: The purpose of this app is to track food that you consumed and lists everything you ate within 2 days. If 'REACTION' button is pressed, it tells the app that something you ate within 2 days caused a reaction and gives the list of food you ate within 2 days.
 
-## Objective: I wanted to learn about CRUD operations and MongoDB database. I also learned about different encryptions for making accounts to store in the Appilications Database by using Passport Oauth.
+## Objective: I wanted to learn about CRUD operations and MongoDB database. I also learned different encryptions for making accounts to store in the Appilications Database by using Passport Oauth.
 
 
 # Demo: https://foodtrack2022.herokuapp.com/
